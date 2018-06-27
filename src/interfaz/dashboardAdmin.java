@@ -357,9 +357,8 @@ public class dashboardAdmin extends javax.swing.JFrame {
         int dialogButton = JOptionPane.YES_NO_OPTION;
         JOptionPane.showConfirmDialog(null, "¿Desea Cerrar Sesion?", "", dialogButton);
         if (dialogButton == JOptionPane.YES_OPTION) {
-            login frm = new login();
-            frm.setLocationRelativeTo(null);
-            frm.setVisible(true);
+            
+            
             this.dispose();
             
         }

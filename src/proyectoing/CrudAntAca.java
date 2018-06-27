@@ -12,12 +12,8 @@ import java.sql.Statement;
 import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
 import modelo.Conexion;
-import static proyectoing.CrudAntPer.cn;
 
-/**
- *
- * @author nikocid
- */
+
 public class CrudAntAca {
 
     static Connection cn;

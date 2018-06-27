@@ -7,10 +7,7 @@ package modelo;
 
 import java.sql.Date;
 
-/**
- *
- * @author YAC
- */
+
 public class Reporte {
     private int id;
     private Date fechaReporte;

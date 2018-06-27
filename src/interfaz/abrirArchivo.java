@@ -137,11 +137,10 @@ public class abrirArchivo extends javax.swing.JFrame {
         if(!this.lblDB.getText().isEmpty()){
             
         
-                login frm = new login();
+                
         //dashboardAdmin.lblLogin.setText("Bienvenido: " + us[0]);
         //dashboardAdmin.lblLogin1.setText(us[1]);
-        frm.setLocationRelativeTo(null);
-        frm.setVisible(true);
+        
         this.dispose();
         }else{
             JOptionPane.showMessageDialog(null, "Debe Seleccionar el archivo DB local","",0);

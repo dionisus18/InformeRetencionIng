@@ -4,7 +4,6 @@
  * and open the template in the editor.
  */
 package modelo;
-import interfaz.registroDocenteN;
 import java.awt.event.KeyAdapter;
 import java.awt.event.KeyEvent;
 import javax.swing.JOptionPane;
