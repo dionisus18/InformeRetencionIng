@@ -9,3 +9,5 @@ sqlitejdbc-v056.jar.rar
 nbproject/private/private.xml
 *.properties
 *.properties
+*.properties
+nbproject/private/private.properties
