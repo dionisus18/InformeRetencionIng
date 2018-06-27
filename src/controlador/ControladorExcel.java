@@ -5,10 +5,10 @@
  */
 package controlador;
 
+import vistas.registroDocenteN;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.io.*;
-import interfaz.*;
 import modelo.ModeloExcel;
 import javax.swing.*;
 import javax.swing.filechooser.FileNameExtensionFilter;

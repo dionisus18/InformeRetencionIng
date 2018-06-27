@@ -3,7 +3,7 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package interfaz;
+package vistas;
 
 import java.sql.Connection;
 import java.sql.ResultSet;
@@ -13,7 +13,7 @@ import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.table.DefaultTableModel;
-import proyectoing.CrudAntPer;
+import informeRetencion.CrudAntPer;
 import javax.swing.JOptionPane;
 import modelo.*;
 
@@ -21,16 +21,17 @@ import modelo.*;
  *
  * @author snahu
  */
-public class buscarAntecenteAca extends javax.swing.JFrame {
+public class buscarDocente extends javax.swing.JFrame {
 
     static Connection cnn;
     static Statement s;
     static ResultSet rs;
-
+    public static String user;
+    public static String rut;
     /**
      * Creates new form buscarDocente
      */
-    public buscarAntecenteAca() {
+    public buscarDocente() {
         initComponents();
         cargarDatos();
     }
@@ -71,7 +72,7 @@ public class buscarAntecenteAca extends javax.swing.JFrame {
         jLabel2.setText("Filtrar por palabra:");
 
         btnBuscar.setFont(new java.awt.Font("Times New Roman", 0, 12)); // NOI18N
-        btnBuscar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/interfaz/iconos/boton_buscar.png"))); // NOI18N
+        btnBuscar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/vistas/iconos/boton_buscar.png"))); // NOI18N
         btnBuscar.setText("Buscar");
         btnBuscar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -96,7 +97,7 @@ public class buscarAntecenteAca extends javax.swing.JFrame {
         jScrollPane1.setViewportView(tablaAntP);
 
         btnVolver.setFont(new java.awt.Font("Times New Roman", 0, 14)); // NOI18N
-        btnVolver.setIcon(new javax.swing.ImageIcon(getClass().getResource("/interfaz/iconos/boton_regresar.png"))); // NOI18N
+        btnVolver.setIcon(new javax.swing.ImageIcon(getClass().getResource("/vistas/iconos/boton_regresar.png"))); // NOI18N
         btnVolver.setText("Volver al menu");
         btnVolver.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -105,7 +106,7 @@ public class buscarAntecenteAca extends javax.swing.JFrame {
         });
 
         btnActTabla.setFont(new java.awt.Font("Times New Roman", 0, 12)); // NOI18N
-        btnActTabla.setIcon(new javax.swing.ImageIcon(getClass().getResource("/interfaz/iconos/boton_consulta.png"))); // NOI18N
+        btnActTabla.setIcon(new javax.swing.ImageIcon(getClass().getResource("/vistas/iconos/boton_consulta.png"))); // NOI18N
         btnActTabla.setText("Actualizar tabla ");
         btnActTabla.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -168,9 +169,14 @@ public class buscarAntecenteAca extends javax.swing.JFrame {
 
     private void btnVolverActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnVolverActionPerformed
         // TODO add your handling code here:
-        this.hide();
+
         dashboardAdmin frm = new dashboardAdmin();
+        dashboardAdmin.user = this.user;
+        dashboardAdmin.rut = this.rut;
+        frm.setLocationRelativeTo(null);
         frm.setVisible(true);
+        
+        this.dispose();
 
     }//GEN-LAST:event_btnVolverActionPerformed
     public void Buscar() {
@@ -207,23 +213,21 @@ public class buscarAntecenteAca extends javax.swing.JFrame {
                 }
             }
         } catch (ClassNotFoundException ex) {
-            java.util.logging.Logger.getLogger(buscarAntecenteAca.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(buscarDocente.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (InstantiationException ex) {
-            java.util.logging.Logger.getLogger(buscarAntecenteAca.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(buscarDocente.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (IllegalAccessException ex) {
-            java.util.logging.Logger.getLogger(buscarAntecenteAca.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(buscarDocente.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (javax.swing.UnsupportedLookAndFeelException ex) {
-            java.util.logging.Logger.getLogger(buscarAntecenteAca.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(buscarDocente.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         }
-        //</editor-fold>
-        //</editor-fold>
         //</editor-fold>
         //</editor-fold>
 
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
-                new buscarAntecenteAca().setVisible(true);
+                new buscarDocente().setVisible(true);
             }
         });
     }

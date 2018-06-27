@@ -244,7 +244,7 @@
           <Font name="Times New Roman" size="14" style="0"/>
         </Property>
         <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
-          <Image iconType="3" name="/interfaz/iconos/boton_nuevo.png"/>
+          <Image iconType="3" name="/vistas/iconos/boton_nuevo.png"/>
         </Property>
         <Property name="text" type="java.lang.String" value="Agregar Nuevo"/>
       </Properties>
@@ -258,7 +258,7 @@
           <Font name="Times New Roman" size="14" style="0"/>
         </Property>
         <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
-          <Image iconType="3" name="/interfaz/iconos/boton_modificar.png"/>
+          <Image iconType="3" name="/vistas/iconos/boton_modificar.png"/>
         </Property>
         <Property name="text" type="java.lang.String" value="Modificar "/>
       </Properties>
@@ -272,7 +272,7 @@
           <Font name="Times New Roman" size="14" style="0"/>
         </Property>
         <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
-          <Image iconType="3" name="/interfaz/iconos/boton_eliminar.png"/>
+          <Image iconType="3" name="/vistas/iconos/boton_eliminar.png"/>
         </Property>
         <Property name="text" type="java.lang.String" value="Eliminar"/>
       </Properties>
@@ -286,7 +286,7 @@
           <Font name="Times New Roman" size="14" style="0"/>
         </Property>
         <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
-          <Image iconType="3" name="/interfaz/iconos/boton_buscar.png"/>
+          <Image iconType="3" name="/vistas/iconos/boton_buscar.png"/>
         </Property>
         <Property name="text" type="java.lang.String" value="Buscar"/>
       </Properties>
@@ -300,7 +300,7 @@
           <Font name="Times New Roman" size="14" style="0"/>
         </Property>
         <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
-          <Image iconType="3" name="/interfaz/iconos/boton_salir.png"/>
+          <Image iconType="3" name="/vistas/iconos/boton_salir.png"/>
         </Property>
         <Property name="text" type="java.lang.String" value="Volver al Menu"/>
       </Properties>
@@ -344,7 +344,7 @@
     <Component class="javax.swing.JButton" name="jButton7">
       <Properties>
         <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
-          <Image iconType="3" name="/interfaz/iconos/838461.png"/>
+          <Image iconType="3" name="/vistas/iconos/838461.png"/>
         </Property>
         <Property name="text" type="java.lang.String" value="Limpiar Campos"/>
       </Properties>
@@ -364,7 +364,7 @@
     <Component class="javax.swing.JButton" name="jButton6">
       <Properties>
         <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
-          <Image iconType="3" name="/interfaz/iconos/boton_consulta.png"/>
+          <Image iconType="3" name="/vistas/iconos/boton_consulta.png"/>
         </Property>
         <Property name="text" type="java.lang.String" value="Cargar Datos"/>
       </Properties>

@@ -3,11 +3,11 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package interfaz;
+package vistas;
 
 import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
-import proyectoing.CrudAntPer;
+import informeRetencion.CrudAntPer;
 
 /**
  *
@@ -69,7 +69,7 @@ public class seleccionDocentes extends javax.swing.JFrame {
         jScrollPane1.setViewportView(tablaSeleccion);
 
         btnSeleccion.setFont(new java.awt.Font("Times New Roman", 1, 14)); // NOI18N
-        btnSeleccion.setIcon(new javax.swing.ImageIcon(getClass().getResource("/interfaz/iconos/boton_modificar.png"))); // NOI18N
+        btnSeleccion.setIcon(new javax.swing.ImageIcon(getClass().getResource("/vistas/iconos/boton_modificar.png"))); // NOI18N
         btnSeleccion.setText("Seleccion");
         btnSeleccion.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -78,7 +78,7 @@ public class seleccionDocentes extends javax.swing.JFrame {
         });
 
         btnMenu.setFont(new java.awt.Font("Times New Roman", 1, 14)); // NOI18N
-        btnMenu.setIcon(new javax.swing.ImageIcon(getClass().getResource("/interfaz/iconos/boton_libro.png"))); // NOI18N
+        btnMenu.setIcon(new javax.swing.ImageIcon(getClass().getResource("/vistas/iconos/boton_libro.png"))); // NOI18N
         btnMenu.setText("Volver al Menu");
         btnMenu.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {

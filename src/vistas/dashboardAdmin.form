@@ -122,7 +122,7 @@
               <Font name="Times New Roman" size="14" style="0"/>
             </Property>
             <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
-              <Image iconType="3" name="/interfaz/iconos/boton_nuevo.png"/>
+              <Image iconType="3" name="/vistas/iconos/boton_nuevo.png"/>
             </Property>
             <Property name="text" type="java.lang.String" value="Registrar Docentes"/>
           </Properties>
@@ -136,7 +136,7 @@
               <Font name="Times New Roman" size="14" style="0"/>
             </Property>
             <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
-              <Image iconType="3" name="/interfaz/iconos/boton_buscar.png"/>
+              <Image iconType="3" name="/vistas/iconos/boton_buscar.png"/>
             </Property>
             <Property name="text" type="java.lang.String" value="Buscar Docentes"/>
           </Properties>
@@ -150,7 +150,7 @@
               <Font name="Times New Roman" size="14" style="0"/>
             </Property>
             <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
-              <Image iconType="3" name="/interfaz/iconos/boton_consulta.png"/>
+              <Image iconType="3" name="/vistas/iconos/boton_consulta.png"/>
             </Property>
             <Property name="text" type="java.lang.String" value="Registrar Antecendtes Laborales"/>
           </Properties>
@@ -164,7 +164,7 @@
               <Font name="Times New Roman" size="14" style="0"/>
             </Property>
             <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
-              <Image iconType="3" name="/interfaz/iconos/boton_consulta.png"/>
+              <Image iconType="3" name="/vistas/iconos/boton_consulta.png"/>
             </Property>
             <Property name="text" type="java.lang.String" value="Registros del docente"/>
           </Properties>
@@ -178,7 +178,7 @@
               <Font name="Times New Roman" size="14" style="0"/>
             </Property>
             <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
-              <Image iconType="3" name="/interfaz/iconos/boton_libro.png"/>
+              <Image iconType="3" name="/vistas/iconos/boton_libro.png"/>
             </Property>
             <Property name="text" type="java.lang.String" value="Registrar Antecedentes Academicos"/>
           </Properties>
@@ -226,7 +226,7 @@
               <Font name="Times New Roman" size="14" style="0"/>
             </Property>
             <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
-              <Image iconType="3" name="/interfaz/iconos/109846.png"/>
+              <Image iconType="3" name="/vistas/iconos/109846.png"/>
             </Property>
             <Property name="text" type="java.lang.String" value="Gestion Reportes"/>
           </Properties>
@@ -282,7 +282,7 @@
               <Font name="Times New Roman" size="14" style="0"/>
             </Property>
             <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
-              <Image iconType="3" name="/interfaz/iconos/flecha-de-descarga.png"/>
+              <Image iconType="3" name="/vistas/iconos/flecha-de-descarga.png"/>
             </Property>
             <Property name="text" type="java.lang.String" value="Importar Datos en excel"/>
           </Properties>
@@ -293,7 +293,7 @@
               <Font name="Times New Roman" size="14" style="0"/>
             </Property>
             <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
-              <Image iconType="3" name="/interfaz/iconos/exportar.png"/>
+              <Image iconType="3" name="/vistas/iconos/exportar.png"/>
             </Property>
             <Property name="text" type="java.lang.String" value="Exportar datos a un excel"/>
           </Properties>
@@ -304,7 +304,7 @@
               <Font name="Times New Roman" size="14" style="0"/>
             </Property>
             <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
-              <Image iconType="3" name="/interfaz/iconos/exportar.png"/>
+              <Image iconType="3" name="/vistas/iconos/exportar.png"/>
             </Property>
             <Property name="text" type="java.lang.String" value="Generar Reporte"/>
           </Properties>
@@ -355,7 +355,7 @@
         <Component class="javax.swing.JButton" name="jButton1">
           <Properties>
             <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
-              <Image iconType="3" name="/interfaz/iconos/salir.png"/>
+              <Image iconType="3" name="/vistas/iconos/salir.png"/>
             </Property>
             <Property name="text" type="java.lang.String" value="Cerrar Sesion"/>
           </Properties>
@@ -395,7 +395,7 @@
     <Component class="javax.swing.JLabel" name="jLabel2">
       <Properties>
         <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
-          <Image iconType="3" name="/interfaz/iconos/Imagen1.png"/>
+          <Image iconType="3" name="/vistas/iconos/Imagen1.png"/>
         </Property>
       </Properties>
     </Component>

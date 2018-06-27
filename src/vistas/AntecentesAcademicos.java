@@ -3,24 +3,24 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package interfaz;
+package vistas;
 
 import controlador.CrudPeriodo;
-import static interfaz.registroDocenteN.inputAI;
-import static interfaz.registroDocenteN.inputAM;
-import static interfaz.registroDocenteN.inputAP;
-import static interfaz.registroDocenteN.inputCE;
-import static interfaz.registroDocenteN.inputD;
-import static interfaz.registroDocenteN.inputFN;
-import static interfaz.registroDocenteN.inputID;
-import static interfaz.registroDocenteN.inputN;
-import static interfaz.registroDocenteN.inputNC;
-import static interfaz.registroDocenteN.inputTC;
+import static vistas.registroDocenteN.inputAI;
+import static vistas.registroDocenteN.inputAM;
+import static vistas.registroDocenteN.inputAP;
+import static vistas.registroDocenteN.inputCE;
+import static vistas.registroDocenteN.inputD;
+import static vistas.registroDocenteN.inputFN;
+import static vistas.registroDocenteN.inputID;
+import static vistas.registroDocenteN.inputN;
+import static vistas.registroDocenteN.inputNC;
+import static vistas.registroDocenteN.inputTC;
 import java.util.ArrayList;
 import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
-import proyectoing.CrudAntAca;
-import proyectoing.CrudAntPer;
+import informeRetencion.CrudAntAca;
+import informeRetencion.CrudAntPer;
 
 /**
  *
@@ -140,7 +140,7 @@ public class AntecentesAcademicos extends javax.swing.JFrame {
         lblIDdoc.setText("id-oculta");
 
         jButton1.setFont(new java.awt.Font("Times New Roman", 0, 14)); // NOI18N
-        jButton1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/interfaz/iconos/boton_nuevo.png"))); // NOI18N
+        jButton1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/vistas/iconos/boton_nuevo.png"))); // NOI18N
         jButton1.setText("Agregar Nuevo");
         jButton1.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -149,7 +149,7 @@ public class AntecentesAcademicos extends javax.swing.JFrame {
         });
 
         jButton2.setFont(new java.awt.Font("Times New Roman", 0, 14)); // NOI18N
-        jButton2.setIcon(new javax.swing.ImageIcon(getClass().getResource("/interfaz/iconos/boton_modificar.png"))); // NOI18N
+        jButton2.setIcon(new javax.swing.ImageIcon(getClass().getResource("/vistas/iconos/boton_modificar.png"))); // NOI18N
         jButton2.setText("Modificar ");
         jButton2.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -158,7 +158,7 @@ public class AntecentesAcademicos extends javax.swing.JFrame {
         });
 
         jButton3.setFont(new java.awt.Font("Times New Roman", 0, 14)); // NOI18N
-        jButton3.setIcon(new javax.swing.ImageIcon(getClass().getResource("/interfaz/iconos/boton_eliminar.png"))); // NOI18N
+        jButton3.setIcon(new javax.swing.ImageIcon(getClass().getResource("/vistas/iconos/boton_eliminar.png"))); // NOI18N
         jButton3.setText("Eliminar");
         jButton3.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -167,7 +167,7 @@ public class AntecentesAcademicos extends javax.swing.JFrame {
         });
 
         jButton4.setFont(new java.awt.Font("Times New Roman", 0, 14)); // NOI18N
-        jButton4.setIcon(new javax.swing.ImageIcon(getClass().getResource("/interfaz/iconos/boton_buscar.png"))); // NOI18N
+        jButton4.setIcon(new javax.swing.ImageIcon(getClass().getResource("/vistas/iconos/boton_buscar.png"))); // NOI18N
         jButton4.setText("Buscar");
         jButton4.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -176,7 +176,7 @@ public class AntecentesAcademicos extends javax.swing.JFrame {
         });
 
         jButton5.setFont(new java.awt.Font("Times New Roman", 0, 14)); // NOI18N
-        jButton5.setIcon(new javax.swing.ImageIcon(getClass().getResource("/interfaz/iconos/boton_salir.png"))); // NOI18N
+        jButton5.setIcon(new javax.swing.ImageIcon(getClass().getResource("/vistas/iconos/boton_salir.png"))); // NOI18N
         jButton5.setText("Volver al Menu");
         jButton5.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -192,14 +192,14 @@ public class AntecentesAcademicos extends javax.swing.JFrame {
 
         cmbPeriodo.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
 
-        jButton7.setIcon(new javax.swing.ImageIcon(getClass().getResource("/interfaz/iconos/838461.png"))); // NOI18N
+        jButton7.setIcon(new javax.swing.ImageIcon(getClass().getResource("/vistas/iconos/838461.png"))); // NOI18N
         jButton7.setText("Limpiar Campos");
 
         jLabel6.setText("ID Registro:");
 
         inputID.setEditable(false);
 
-        jButton6.setIcon(new javax.swing.ImageIcon(getClass().getResource("/interfaz/iconos/boton_consulta.png"))); // NOI18N
+        jButton6.setIcon(new javax.swing.ImageIcon(getClass().getResource("/vistas/iconos/boton_consulta.png"))); // NOI18N
         jButton6.setText("Cargar Datos");
         jButton6.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {

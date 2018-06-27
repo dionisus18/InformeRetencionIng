@@ -3,14 +3,14 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package interfaz;
+package vistas;
 
 import java.sql.Connection;
 import java.sql.ResultSet;
 import java.sql.Statement;
 import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
-import proyectoing.CrudAntLab;
+import informeRetencion.CrudAntLab;
 
 /**
  *
@@ -151,7 +151,7 @@ public class antecedentesLaborales extends javax.swing.JFrame {
         jScrollPane3.setViewportView(inputCur);
 
         jButton1.setFont(new java.awt.Font("Times New Roman", 0, 12)); // NOI18N
-        jButton1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/interfaz/iconos/boton_buscar.png"))); // NOI18N
+        jButton1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/vistas/iconos/boton_buscar.png"))); // NOI18N
         jButton1.setText("Buscar Antecendetes Docente");
         jButton1.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -160,7 +160,7 @@ public class antecedentesLaborales extends javax.swing.JFrame {
         });
 
         btn_crearAnt.setFont(new java.awt.Font("Times New Roman", 0, 14)); // NOI18N
-        btn_crearAnt.setIcon(new javax.swing.ImageIcon(getClass().getResource("/interfaz/iconos/boton_nuevo.png"))); // NOI18N
+        btn_crearAnt.setIcon(new javax.swing.ImageIcon(getClass().getResource("/vistas/iconos/boton_nuevo.png"))); // NOI18N
         btn_crearAnt.setText("Crear antecedente");
         btn_crearAnt.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -169,7 +169,7 @@ public class antecedentesLaborales extends javax.swing.JFrame {
         });
 
         jButton4.setFont(new java.awt.Font("Times New Roman", 0, 14)); // NOI18N
-        jButton4.setIcon(new javax.swing.ImageIcon(getClass().getResource("/interfaz/iconos/838461.png"))); // NOI18N
+        jButton4.setIcon(new javax.swing.ImageIcon(getClass().getResource("/vistas/iconos/838461.png"))); // NOI18N
         jButton4.setText("Limpiar");
         jButton4.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -181,7 +181,7 @@ public class antecedentesLaborales extends javax.swing.JFrame {
         lblNombreDoc.setText("Docente:");
 
         jButton5.setFont(new java.awt.Font("Times New Roman", 0, 14)); // NOI18N
-        jButton5.setIcon(new javax.swing.ImageIcon(getClass().getResource("/interfaz/iconos/boton_salir.png"))); // NOI18N
+        jButton5.setIcon(new javax.swing.ImageIcon(getClass().getResource("/vistas/iconos/boton_salir.png"))); // NOI18N
         jButton5.setText("Volver al menu");
         jButton5.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -195,7 +195,7 @@ public class antecedentesLaborales extends javax.swing.JFrame {
         jLabel12.setText("id");
 
         jButton6.setFont(new java.awt.Font("Times New Roman", 0, 14)); // NOI18N
-        jButton6.setIcon(new javax.swing.ImageIcon(getClass().getResource("/interfaz/iconos/boton_eliminar.png"))); // NOI18N
+        jButton6.setIcon(new javax.swing.ImageIcon(getClass().getResource("/vistas/iconos/boton_eliminar.png"))); // NOI18N
         jButton6.setText("Eliminar ");
         jButton6.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -204,7 +204,7 @@ public class antecedentesLaborales extends javax.swing.JFrame {
         });
 
         btn_modificarAntL.setFont(new java.awt.Font("Times New Roman", 0, 14)); // NOI18N
-        btn_modificarAntL.setIcon(new javax.swing.ImageIcon(getClass().getResource("/interfaz/iconos/boton_modificar.png"))); // NOI18N
+        btn_modificarAntL.setIcon(new javax.swing.ImageIcon(getClass().getResource("/vistas/iconos/boton_modificar.png"))); // NOI18N
         btn_modificarAntL.setText("modificar");
         btn_modificarAntL.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -218,7 +218,7 @@ public class antecedentesLaborales extends javax.swing.JFrame {
         lblRut.setText("Rut:");
 
         jButton2.setFont(new java.awt.Font("Times New Roman", 0, 24)); // NOI18N
-        jButton2.setIcon(new javax.swing.ImageIcon(getClass().getResource("/interfaz/iconos/boton_consulta.png"))); // NOI18N
+        jButton2.setIcon(new javax.swing.ImageIcon(getClass().getResource("/vistas/iconos/boton_consulta.png"))); // NOI18N
         jButton2.setText("cargar datos");
         jButton2.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {

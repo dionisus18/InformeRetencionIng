@@ -3,7 +3,7 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package interfaz;
+package vistas;
 
 import java.io.File;
 import java.io.FileInputStream;
@@ -78,14 +78,14 @@ public class abrirArchivo extends javax.swing.JFrame {
         jLabel1.setFont(new java.awt.Font("Times New Roman", 0, 24)); // NOI18N
         jLabel1.setText("Cargar Archivo DB local");
 
-        btnBuscar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/interfaz/iconos/database.png"))); // NOI18N
+        btnBuscar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/vistas/iconos/database.png"))); // NOI18N
         btnBuscar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btnBuscarActionPerformed(evt);
             }
         });
 
-        btnvolver.setIcon(new javax.swing.ImageIcon(getClass().getResource("/interfaz/iconos/login.png"))); // NOI18N
+        btnvolver.setIcon(new javax.swing.ImageIcon(getClass().getResource("/vistas/iconos/login.png"))); // NOI18N
         btnvolver.setText("Ingresar al sistema");
         btnvolver.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
