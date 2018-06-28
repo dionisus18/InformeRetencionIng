@@ -5,8 +5,11 @@
  */
 package vistas;
 
-import informeRetencion.CrudAntLab;
-import informeRetencion.DAORegion;
+import informeRetencion.DAOArea;
+import java.util.LinkedList;
+import java.util.List;
+import javax.swing.DefaultComboBoxModel;
+import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
 
 /**
@@ -17,14 +20,18 @@ public class dashboardRetencion extends javax.swing.JFrame {
 
     public dashboardRetencion() {
         initComponents();
-        DatosTablaAntLab();
+        DatosTablaArea();
     }
 
-    public void DatosTablaAntLab(){
-        DAORegion daoregion = new DAORegion();
-        DefaultTableModel model = new DefaultTableModel();
-        model = daoregion.lista();
-        tableRegion.setModel(model);
+    public void DatosTablaArea(){
+        DAOArea daoarea = new DAOArea();
+        DefaultTableModel DatosTablaArea = new DefaultTableModel();
+        DatosTablaArea = daoarea.listaArea();
+        tablaRetencionArea.setModel(DatosTablaArea);
+        /*
+        List<String> ls = daoarea.consultar();
+        listArea.setModel(new DefaultComboBoxModel(ls.toArray()));
+ */
     }
 
     /**
@@ -37,73 +44,123 @@ public class dashboardRetencion extends javax.swing.JFrame {
     private void initComponents() {
 
         jOptionPane1 = new javax.swing.JOptionPane();
-        jTabbedPane1 = new javax.swing.JTabbedPane();
-        jPanel3 = new javax.swing.JPanel();
-        jPanel1 = new javax.swing.JPanel();
-        jPanel2 = new javax.swing.JPanel();
-        jTextField1 = new javax.swing.JTextField();
+        menuTabsDashboard = new javax.swing.JTabbedPane();
+        Inicio = new javax.swing.JPanel();
+        contenidoRetencionArea = new javax.swing.JPanel();
+        divisionRArea = new javax.swing.JSplitPane();
+        contenidoAreaInputs = new javax.swing.JPanel();
         jLabel1 = new javax.swing.JLabel();
+        txtPorcentajeArea = new javax.swing.JTextField();
         jLabel2 = new javax.swing.JLabel();
-        jComboBox1 = new javax.swing.JComboBox<>();
         jLabel3 = new javax.swing.JLabel();
-        jComboBox2 = new javax.swing.JComboBox<>();
+        txtAñoArea = new javax.swing.JTextField();
+        listArea = new javax.swing.JComboBox<>();
+        jLabel5 = new javax.swing.JLabel();
+        btnIngresarDatosReporteArea = new javax.swing.JButton();
+        contenidoAreaTabla = new javax.swing.JPanel();
         jScrollPane1 = new javax.swing.JScrollPane();
-        tableRegion = new javax.swing.JTable();
+        tablaRetencionArea = new javax.swing.JTable();
+        contenidoRetencionSede = new javax.swing.JPanel();
+        contenidoRetencionCarrera = new javax.swing.JPanel();
+        contenidoRetencionZona = new javax.swing.JPanel();
+        contenidoRetencionAnual = new javax.swing.JPanel();
+        contenidoRetencionJornada = new javax.swing.JPanel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setMinimumSize(new java.awt.Dimension(800, 600));
+        setPreferredSize(new java.awt.Dimension(1280, 720));
 
-        javax.swing.GroupLayout jPanel3Layout = new javax.swing.GroupLayout(jPanel3);
-        jPanel3.setLayout(jPanel3Layout);
-        jPanel3Layout.setHorizontalGroup(
-            jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 215, Short.MAX_VALUE)
+        javax.swing.GroupLayout InicioLayout = new javax.swing.GroupLayout(Inicio);
+        Inicio.setLayout(InicioLayout);
+        InicioLayout.setHorizontalGroup(
+            InicioLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 1255, Short.MAX_VALUE)
         );
-        jPanel3Layout.setVerticalGroup(
-            jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 622, Short.MAX_VALUE)
-        );
-
-        jTabbedPane1.addTab("Sedes", jPanel3);
-
-        javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
-        jPanel1.setLayout(jPanel1Layout);
-        jPanel1Layout.setHorizontalGroup(
-            jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 215, Short.MAX_VALUE)
-        );
-        jPanel1Layout.setVerticalGroup(
-            jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 622, Short.MAX_VALUE)
+        InicioLayout.setVerticalGroup(
+            InicioLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 670, Short.MAX_VALUE)
         );
 
-        jTabbedPane1.addTab("tab1", jPanel1);
+        menuTabsDashboard.addTab("Inicio", Inicio);
 
-        javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
-        jPanel2.setLayout(jPanel2Layout);
-        jPanel2Layout.setHorizontalGroup(
-            jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 215, Short.MAX_VALUE)
+        divisionRArea.setBorder(new javax.swing.border.SoftBevelBorder(javax.swing.border.BevelBorder.RAISED));
+        divisionRArea.setDividerLocation(240);
+        divisionRArea.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
+
+        contenidoAreaInputs.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
+
+        jLabel1.setText("Porcentaje");
+
+        jLabel2.setText("Area");
+
+        jLabel3.setText("Año");
+
+        listArea.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
+        listArea.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                listAreaActionPerformed(evt);
+            }
+        });
+
+        jLabel5.setText("Ingreso de Datos Area");
+
+        btnIngresarDatosReporteArea.setText("Ingresar Datos");
+        btnIngresarDatosReporteArea.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnIngresarDatosReporteAreaActionPerformed(evt);
+            }
+        });
+
+        javax.swing.GroupLayout contenidoAreaInputsLayout = new javax.swing.GroupLayout(contenidoAreaInputs);
+        contenidoAreaInputs.setLayout(contenidoAreaInputsLayout);
+        contenidoAreaInputsLayout.setHorizontalGroup(
+            contenidoAreaInputsLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(contenidoAreaInputsLayout.createSequentialGroup()
+                .addGroup(contenidoAreaInputsLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(contenidoAreaInputsLayout.createSequentialGroup()
+                        .addGap(60, 60, 60)
+                        .addComponent(jLabel5))
+                    .addGroup(contenidoAreaInputsLayout.createSequentialGroup()
+                        .addGap(40, 40, 40)
+                        .addGroup(contenidoAreaInputsLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                            .addComponent(btnIngresarDatosReporteArea)
+                            .addGroup(contenidoAreaInputsLayout.createSequentialGroup()
+                                .addGroup(contenidoAreaInputsLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addComponent(jLabel1)
+                                    .addComponent(jLabel2)
+                                    .addComponent(jLabel3))
+                                .addGap(18, 18, 18)
+                                .addGroup(contenidoAreaInputsLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
+                                    .addComponent(txtAñoArea, javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addComponent(listArea, javax.swing.GroupLayout.Alignment.LEADING, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                    .addComponent(txtPorcentajeArea))))))
+                .addGap(47, 47, 47))
         );
-        jPanel2Layout.setVerticalGroup(
-            jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 622, Short.MAX_VALUE)
+        contenidoAreaInputsLayout.setVerticalGroup(
+            contenidoAreaInputsLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(contenidoAreaInputsLayout.createSequentialGroup()
+                .addGap(60, 60, 60)
+                .addComponent(jLabel5)
+                .addGap(52, 52, 52)
+                .addGroup(contenidoAreaInputsLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel1)
+                    .addComponent(txtPorcentajeArea, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addGroup(contenidoAreaInputsLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel2)
+                    .addComponent(listArea, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(18, 18, 18)
+                .addGroup(contenidoAreaInputsLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel3)
+                    .addComponent(txtAñoArea, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(44, 44, 44)
+                .addComponent(btnIngresarDatosReporteArea)
+                .addContainerGap(360, Short.MAX_VALUE))
         );
 
-        jTabbedPane1.addTab("tab2", jPanel2);
+        divisionRArea.setLeftComponent(contenidoAreaInputs);
 
-        jTextField1.setText("jTextField1");
-
-        jLabel1.setText("Porcentaje Retencion");
-
-        jLabel2.setText("Tipo Retencion");
-
-        jComboBox1.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Area", "Carrera", "Zona", "Sede", "Intitucion" }));
-
-        jLabel3.setText("Seleccione area");
-
-        jComboBox2.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "informatica", "redes" }));
-
-        tableRegion.setModel(new javax.swing.table.DefaultTableModel(
+        tablaRetencionArea.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
                 {null, null, null, null},
                 {null, null, null, null},
@@ -114,57 +171,148 @@ public class dashboardRetencion extends javax.swing.JFrame {
                 "Title 1", "Title 2", "Title 3", "Title 4"
             }
         ));
-        jScrollPane1.setViewportView(tableRegion);
+        jScrollPane1.setViewportView(tablaRetencionArea);
+
+        javax.swing.GroupLayout contenidoAreaTablaLayout = new javax.swing.GroupLayout(contenidoAreaTabla);
+        contenidoAreaTabla.setLayout(contenidoAreaTablaLayout);
+        contenidoAreaTablaLayout.setHorizontalGroup(
+            contenidoAreaTablaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(contenidoAreaTablaLayout.createSequentialGroup()
+                .addGap(60, 60, 60)
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 917, Short.MAX_VALUE)
+                .addContainerGap())
+        );
+        contenidoAreaTablaLayout.setVerticalGroup(
+            contenidoAreaTablaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(contenidoAreaTablaLayout.createSequentialGroup()
+                .addGap(60, 60, 60)
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 571, Short.MAX_VALUE)
+                .addContainerGap())
+        );
+
+        divisionRArea.setRightComponent(contenidoAreaTabla);
+
+        javax.swing.GroupLayout contenidoRetencionAreaLayout = new javax.swing.GroupLayout(contenidoRetencionArea);
+        contenidoRetencionArea.setLayout(contenidoRetencionAreaLayout);
+        contenidoRetencionAreaLayout.setHorizontalGroup(
+            contenidoRetencionAreaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(contenidoRetencionAreaLayout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(divisionRArea, javax.swing.GroupLayout.DEFAULT_SIZE, 1235, Short.MAX_VALUE)
+                .addContainerGap())
+        );
+        contenidoRetencionAreaLayout.setVerticalGroup(
+            contenidoRetencionAreaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(contenidoRetencionAreaLayout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(divisionRArea)
+                .addContainerGap())
+        );
+
+        menuTabsDashboard.addTab("Retencion por Area", contenidoRetencionArea);
+
+        javax.swing.GroupLayout contenidoRetencionSedeLayout = new javax.swing.GroupLayout(contenidoRetencionSede);
+        contenidoRetencionSede.setLayout(contenidoRetencionSedeLayout);
+        contenidoRetencionSedeLayout.setHorizontalGroup(
+            contenidoRetencionSedeLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 1255, Short.MAX_VALUE)
+        );
+        contenidoRetencionSedeLayout.setVerticalGroup(
+            contenidoRetencionSedeLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 670, Short.MAX_VALUE)
+        );
+
+        menuTabsDashboard.addTab("Retencion por Sede", contenidoRetencionSede);
+
+        javax.swing.GroupLayout contenidoRetencionCarreraLayout = new javax.swing.GroupLayout(contenidoRetencionCarrera);
+        contenidoRetencionCarrera.setLayout(contenidoRetencionCarreraLayout);
+        contenidoRetencionCarreraLayout.setHorizontalGroup(
+            contenidoRetencionCarreraLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 1255, Short.MAX_VALUE)
+        );
+        contenidoRetencionCarreraLayout.setVerticalGroup(
+            contenidoRetencionCarreraLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 670, Short.MAX_VALUE)
+        );
+
+        menuTabsDashboard.addTab("Retencion por Carrera", contenidoRetencionCarrera);
+
+        javax.swing.GroupLayout contenidoRetencionZonaLayout = new javax.swing.GroupLayout(contenidoRetencionZona);
+        contenidoRetencionZona.setLayout(contenidoRetencionZonaLayout);
+        contenidoRetencionZonaLayout.setHorizontalGroup(
+            contenidoRetencionZonaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 1255, Short.MAX_VALUE)
+        );
+        contenidoRetencionZonaLayout.setVerticalGroup(
+            contenidoRetencionZonaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 670, Short.MAX_VALUE)
+        );
+
+        menuTabsDashboard.addTab("Retencion por Zona", contenidoRetencionZona);
+
+        javax.swing.GroupLayout contenidoRetencionAnualLayout = new javax.swing.GroupLayout(contenidoRetencionAnual);
+        contenidoRetencionAnual.setLayout(contenidoRetencionAnualLayout);
+        contenidoRetencionAnualLayout.setHorizontalGroup(
+            contenidoRetencionAnualLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 1255, Short.MAX_VALUE)
+        );
+        contenidoRetencionAnualLayout.setVerticalGroup(
+            contenidoRetencionAnualLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 670, Short.MAX_VALUE)
+        );
+
+        menuTabsDashboard.addTab("Retencion Anual", contenidoRetencionAnual);
+
+        javax.swing.GroupLayout contenidoRetencionJornadaLayout = new javax.swing.GroupLayout(contenidoRetencionJornada);
+        contenidoRetencionJornada.setLayout(contenidoRetencionJornadaLayout);
+        contenidoRetencionJornadaLayout.setHorizontalGroup(
+            contenidoRetencionJornadaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 1255, Short.MAX_VALUE)
+        );
+        contenidoRetencionJornadaLayout.setVerticalGroup(
+            contenidoRetencionJornadaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 670, Short.MAX_VALUE)
+        );
+
+        menuTabsDashboard.addTab("Retencion por Jornada", contenidoRetencionJornada);
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addGap(23, 23, 23)
-                .addComponent(jTabbedPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 220, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jLabel1, javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addComponent(jLabel2, javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addComponent(jLabel3, javax.swing.GroupLayout.Alignment.TRAILING))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jTextField1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jComboBox1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jComboBox2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(18, 18, 18)
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(366, Short.MAX_VALUE))
+                .addContainerGap()
+                .addComponent(menuTabsDashboard)
+                .addContainerGap())
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(layout.createSequentialGroup()
-                        .addContainerGap()
-                        .addComponent(jTabbedPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 650, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addGroup(layout.createSequentialGroup()
-                        .addGap(32, 32, 32)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 427, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addGroup(layout.createSequentialGroup()
-                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                                    .addComponent(jTextField1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                    .addComponent(jLabel1))
-                                .addGap(18, 18, 18)
-                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                                    .addComponent(jLabel2)
-                                    .addComponent(jComboBox1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                                .addGap(18, 18, 18)
-                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                                    .addComponent(jLabel3)
-                                    .addComponent(jComboBox2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))))))
-                .addContainerGap(59, Short.MAX_VALUE))
+                .addContainerGap()
+                .addComponent(menuTabsDashboard)
+                .addContainerGap())
         );
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
+
+    private void listAreaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_listAreaActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_listAreaActionPerformed
+
+    private void btnIngresarDatosReporteAreaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnIngresarDatosReporteAreaActionPerformed
+        
+        if (txtPorcentajeArea.getText().trim().isEmpty() || txtAñoArea.getText().trim().isEmpty()) {
+            JOptionPane.showMessageDialog(this, "Faltan campos por completar", "Informe de retencion de area", 0);
+        }else{
+          DAOArea daoarea = new DAOArea();
+
+        daoarea.AgregarArea(txtPorcentajeArea.getText().trim().toUpperCase());
+        }
+        
+        
+        
+    }//GEN-LAST:event_btnIngresarDatosReporteAreaActionPerformed
 
     /**
      * @param args the command line arguments
@@ -202,18 +350,27 @@ public class dashboardRetencion extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JComboBox<String> jComboBox1;
-    private javax.swing.JComboBox<String> jComboBox2;
+    private javax.swing.JPanel Inicio;
+    private javax.swing.JButton btnIngresarDatosReporteArea;
+    private javax.swing.JPanel contenidoAreaInputs;
+    private javax.swing.JPanel contenidoAreaTabla;
+    private javax.swing.JPanel contenidoRetencionAnual;
+    private javax.swing.JPanel contenidoRetencionArea;
+    private javax.swing.JPanel contenidoRetencionCarrera;
+    private javax.swing.JPanel contenidoRetencionJornada;
+    private javax.swing.JPanel contenidoRetencionSede;
+    private javax.swing.JPanel contenidoRetencionZona;
+    private javax.swing.JSplitPane divisionRArea;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
+    private javax.swing.JLabel jLabel5;
     private javax.swing.JOptionPane jOptionPane1;
-    private javax.swing.JPanel jPanel1;
-    private javax.swing.JPanel jPanel2;
-    private javax.swing.JPanel jPanel3;
     private javax.swing.JScrollPane jScrollPane1;
-    private javax.swing.JTabbedPane jTabbedPane1;
-    private javax.swing.JTextField jTextField1;
-    private javax.swing.JTable tableRegion;
+    private javax.swing.JComboBox<String> listArea;
+    private javax.swing.JTabbedPane menuTabsDashboard;
+    private javax.swing.JTable tablaRetencionArea;
+    private javax.swing.JTextField txtAñoArea;
+    private javax.swing.JTextField txtPorcentajeArea;
     // End of variables declaration//GEN-END:variables
 }
