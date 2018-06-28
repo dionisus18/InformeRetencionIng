@@ -9,14 +9,14 @@ import javax.swing.JOptionPane;
 import modelo.Conexion;
 
 
-public class abrirArchivo extends javax.swing.JFrame {
+public class abrirBaseDatos extends javax.swing.JFrame {
     JFileChooser seleccionar = new JFileChooser();
     File archivo;
     FileInputStream entrada;
     FileOutputStream salida;
             
     
-    public abrirArchivo() {
+    public abrirBaseDatos() {
         initComponents();
         lblDB.setVisible(false);
     }
@@ -65,7 +65,6 @@ public class abrirArchivo extends javax.swing.JFrame {
         jLabel1.setFont(new java.awt.Font("Times New Roman", 0, 24)); // NOI18N
         jLabel1.setText("Cargar Archivo DB local");
 
-        btnBuscar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/recursos/database.png"))); // NOI18N
         btnBuscar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btnBuscarActionPerformed(evt);
@@ -83,10 +82,6 @@ public class abrirArchivo extends javax.swing.JFrame {
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addComponent(btnBuscar)
-                .addGap(150, 150, 150))
             .addGroup(layout.createSequentialGroup()
                 .addGap(94, 94, 94)
                 .addComponent(btnvolver, javax.swing.GroupLayout.PREFERRED_SIZE, 196, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -100,6 +95,10 @@ public class abrirArchivo extends javax.swing.JFrame {
                         .addGap(176, 176, 176)
                         .addComponent(lblDB)))
                 .addContainerGap(95, Short.MAX_VALUE))
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                .addGap(0, 0, Short.MAX_VALUE)
+                .addComponent(btnBuscar, javax.swing.GroupLayout.PREFERRED_SIZE, 135, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(150, 150, 150))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -107,13 +106,15 @@ public class abrirArchivo extends javax.swing.JFrame {
                 .addGap(16, 16, 16)
                 .addComponent(jLabel1)
                 .addGap(18, 18, 18)
-                .addComponent(btnBuscar)
-                .addGap(18, 18, 18)
+                .addComponent(btnBuscar, javax.swing.GroupLayout.PREFERRED_SIZE, 21, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(btnvolver, javax.swing.GroupLayout.PREFERRED_SIZE, 37, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(18, 18, 18)
                 .addComponent(lblDB)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addContainerGap(111, Short.MAX_VALUE))
         );
+
+        btnBuscar.getAccessibleContext().setAccessibleName("Buscar Archivo");
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
@@ -175,21 +176,23 @@ public class abrirArchivo extends javax.swing.JFrame {
                 }
             }
         } catch (ClassNotFoundException ex) {
-            java.util.logging.Logger.getLogger(abrirArchivo.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(abrirBaseDatos.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (InstantiationException ex) {
-            java.util.logging.Logger.getLogger(abrirArchivo.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(abrirBaseDatos.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (IllegalAccessException ex) {
-            java.util.logging.Logger.getLogger(abrirArchivo.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(abrirBaseDatos.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (javax.swing.UnsupportedLookAndFeelException ex) {
-            java.util.logging.Logger.getLogger(abrirArchivo.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(abrirBaseDatos.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         }
+        //</editor-fold>
+        //</editor-fold>
         //</editor-fold>
         //</editor-fold>
 
         
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
-                new abrirArchivo().setVisible(true);
+                new abrirBaseDatos().setVisible(true);
             }
         });
     }

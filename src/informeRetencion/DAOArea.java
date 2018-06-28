@@ -17,7 +17,7 @@ import java.util.LinkedList;
 import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
 import modelo.Conexion;
-import modelo.Usuario;
+
 
 /**
  *

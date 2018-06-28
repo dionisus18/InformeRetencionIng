@@ -1,13 +1,13 @@
 
 package informeRetencion;
 
-import vistas.abrirArchivo;
+import vistas.abrirBaseDatos;
 
 
-public class ProyectoING {
+public class PrincipalMainClass {
 
     public static void main(String[] args) {
-        abrirArchivo frm = new abrirArchivo();
+        abrirBaseDatos frm = new abrirBaseDatos();
         frm.setLocationRelativeTo(null);   
         frm.setVisible(true);
     }

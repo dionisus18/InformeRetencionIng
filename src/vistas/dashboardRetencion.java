@@ -6,10 +6,18 @@
 package vistas;
 
 import informeRetencion.DAOArea;
-import java.util.LinkedList;
+import informeRetencion.DAORetencionArea;
+import java.time.Instant;
+import java.time.LocalDate;
+import java.time.ZoneId;
+import java.time.ZonedDateTime;
+import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 import javax.swing.DefaultComboBoxModel;
 import javax.swing.JOptionPane;
+import javax.swing.SpinnerModel;
+import javax.swing.SpinnerNumberModel;
 import javax.swing.table.DefaultTableModel;
 
 /**
@@ -21,18 +29,65 @@ public class dashboardRetencion extends javax.swing.JFrame {
     public dashboardRetencion() {
         initComponents();
         DatosTablaArea();
+        DatosListArea();
+        DatosSpinerAños();
+        DatosSpinerPorcentajes();
     }
 
     public void DatosTablaArea(){
-        DAOArea daoarea = new DAOArea();
+        DAORetencionArea daoaretencionarea = new DAORetencionArea();
         DefaultTableModel DatosTablaArea = new DefaultTableModel();
-        DatosTablaArea = daoarea.listaArea();
+        DatosTablaArea = daoaretencionarea.listaRetencion();
         tablaRetencionArea.setModel(DatosTablaArea);
         /*
         List<String> ls = daoarea.consultar();
         listArea.setModel(new DefaultComboBoxModel(ls.toArray()));
  */
     }
+    
+    public void DatosSpinerPorcentajes(){
+    Float value = new Float(50.20);
+    Float step = new Float(0.1);
+    Float Min = new Float(0.1);
+    Float Max = new Float(100.0);
+    SpinnerNumberModel model = new SpinnerNumberModel(value, Min ,Max , step); 
+    spinerPorcentajeArea.setModel(model);
+    }
+    
+    public void DatosSpinerAños(){
+    Instant instant = Instant.now();
+    ZoneId z = ZoneId.of( "America/Santiago" );
+    ZonedDateTime zdt = instant.atZone( z );
+    Date date = new Date();
+    LocalDate localDate = date.toInstant().atZone(z).toLocalDate();
+    int year  = localDate.getYear();
+    /*
+    int month = localDate.getMonthValue();
+    int day   = localDate.getDayOfMonth();
+   */
+    SpinnerModel model;                //step
+        model = new SpinnerNumberModel(year, //initial value
+                year - 100, //min
+                year + 100, //max
+                1);
+    spinerAñosArea.setModel(model);     
+    }
+    
+    public void DatosListArea(){
+        DAOArea daoarea = new DAOArea();
+        DefaultTableModel DatosTablaArea = new DefaultTableModel();
+        DatosTablaArea = daoarea.listaArea();
+        List<String> ls = new ArrayList<>();
+        for (int i = 0; i < DatosTablaArea.getRowCount(); i++) {
+          
+          ls.add((String) DatosTablaArea.getValueAt(i, 1));
+          
+        }
+        ls.add(0,"");
+        listArea.setModel(new DefaultComboBoxModel(ls.toArray()));
+
+    }
+    
 
     /**
      * This method is called from within the constructor to initialize the form.
@@ -50,16 +105,22 @@ public class dashboardRetencion extends javax.swing.JFrame {
         divisionRArea = new javax.swing.JSplitPane();
         contenidoAreaInputs = new javax.swing.JPanel();
         jLabel1 = new javax.swing.JLabel();
-        txtPorcentajeArea = new javax.swing.JTextField();
         jLabel2 = new javax.swing.JLabel();
         jLabel3 = new javax.swing.JLabel();
-        txtAñoArea = new javax.swing.JTextField();
         listArea = new javax.swing.JComboBox<>();
         jLabel5 = new javax.swing.JLabel();
         btnIngresarDatosReporteArea = new javax.swing.JButton();
+        spinerAñosArea = new javax.swing.JSpinner();
+        spinerPorcentajeArea = new javax.swing.JSpinner();
+        idretencionarea = new javax.swing.JLabel();
+        jSeparator1 = new javax.swing.JSeparator();
+        jLabel4 = new javax.swing.JLabel();
+        jLabel6 = new javax.swing.JLabel();
+        btnModificarRetencionArea = new javax.swing.JButton();
         contenidoAreaTabla = new javax.swing.JPanel();
         jScrollPane1 = new javax.swing.JScrollPane();
         tablaRetencionArea = new javax.swing.JTable();
+        btnEliminarRetencionArea = new javax.swing.JButton();
         contenidoRetencionSede = new javax.swing.JPanel();
         contenidoRetencionCarrera = new javax.swing.JPanel();
         contenidoRetencionZona = new javax.swing.JPanel();
@@ -68,7 +129,6 @@ public class dashboardRetencion extends javax.swing.JFrame {
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setMinimumSize(new java.awt.Dimension(800, 600));
-        setPreferredSize(new java.awt.Dimension(1280, 720));
 
         javax.swing.GroupLayout InicioLayout = new javax.swing.GroupLayout(Inicio);
         Inicio.setLayout(InicioLayout);
@@ -84,10 +144,11 @@ public class dashboardRetencion extends javax.swing.JFrame {
         menuTabsDashboard.addTab("Inicio", Inicio);
 
         divisionRArea.setBorder(new javax.swing.border.SoftBevelBorder(javax.swing.border.BevelBorder.RAISED));
-        divisionRArea.setDividerLocation(240);
+        divisionRArea.setDividerLocation(350);
         divisionRArea.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
 
         contenidoAreaInputs.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
+        contenidoAreaInputs.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
 
         jLabel1.setText("Porcentaje");
 
@@ -102,6 +163,7 @@ public class dashboardRetencion extends javax.swing.JFrame {
             }
         });
 
+        jLabel5.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
         jLabel5.setText("Ingreso de Datos Area");
 
         btnIngresarDatosReporteArea.setText("Ingresar Datos");
@@ -111,51 +173,95 @@ public class dashboardRetencion extends javax.swing.JFrame {
             }
         });
 
+        idretencionarea.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
+        idretencionarea.setText("Valor");
+
+        jLabel4.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
+        jLabel4.setText("ID");
+
+        jLabel6.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
+        jLabel6.setText("Modificación de elemento:");
+
+        btnModificarRetencionArea.setText("Modificar");
+        btnModificarRetencionArea.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnModificarRetencionAreaActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout contenidoAreaInputsLayout = new javax.swing.GroupLayout(contenidoAreaInputs);
         contenidoAreaInputs.setLayout(contenidoAreaInputsLayout);
         contenidoAreaInputsLayout.setHorizontalGroup(
             contenidoAreaInputsLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(contenidoAreaInputsLayout.createSequentialGroup()
+                .addGap(40, 40, 40)
                 .addGroup(contenidoAreaInputsLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(contenidoAreaInputsLayout.createSequentialGroup()
-                        .addGap(60, 60, 60)
-                        .addComponent(jLabel5))
+                        .addComponent(jLabel5)
+                        .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                     .addGroup(contenidoAreaInputsLayout.createSequentialGroup()
-                        .addGap(40, 40, 40)
                         .addGroup(contenidoAreaInputsLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                            .addComponent(btnIngresarDatosReporteArea)
                             .addGroup(contenidoAreaInputsLayout.createSequentialGroup()
                                 .addGroup(contenidoAreaInputsLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                                     .addComponent(jLabel1)
-                                    .addComponent(jLabel2)
-                                    .addComponent(jLabel3))
+                                    .addComponent(jLabel2))
                                 .addGap(18, 18, 18)
-                                .addGroup(contenidoAreaInputsLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
-                                    .addComponent(txtAñoArea, javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addComponent(listArea, javax.swing.GroupLayout.Alignment.LEADING, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                    .addComponent(txtPorcentajeArea))))))
-                .addGap(47, 47, 47))
+                                .addGroup(contenidoAreaInputsLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addComponent(listArea, 0, 166, Short.MAX_VALUE)
+                                    .addComponent(spinerPorcentajeArea)))
+                            .addGroup(javax.swing.GroupLayout.Alignment.LEADING, contenidoAreaInputsLayout.createSequentialGroup()
+                                .addComponent(jLabel3)
+                                .addGap(51, 51, 51)
+                                .addGroup(contenidoAreaInputsLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addComponent(btnIngresarDatosReporteArea, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                    .addComponent(spinerAñosArea, javax.swing.GroupLayout.Alignment.TRAILING))))
+                        .addGap(71, 71, 71))))
+            .addGroup(contenidoAreaInputsLayout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(jSeparator1)
+                .addContainerGap())
+            .addGroup(contenidoAreaInputsLayout.createSequentialGroup()
+                .addGap(39, 39, 39)
+                .addComponent(jLabel6)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addComponent(jLabel4)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(idretencionarea)
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, contenidoAreaInputsLayout.createSequentialGroup()
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(btnModificarRetencionArea, javax.swing.GroupLayout.PREFERRED_SIZE, 163, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(72, 72, 72))
         );
         contenidoAreaInputsLayout.setVerticalGroup(
             contenidoAreaInputsLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(contenidoAreaInputsLayout.createSequentialGroup()
-                .addGap(60, 60, 60)
+                .addGap(62, 62, 62)
                 .addComponent(jLabel5)
-                .addGap(52, 52, 52)
-                .addGroup(contenidoAreaInputsLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabel1)
-                    .addComponent(txtPorcentajeArea, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addGap(49, 49, 49)
                 .addGroup(contenidoAreaInputsLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel2)
                     .addComponent(listArea, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(18, 18, 18)
                 .addGroup(contenidoAreaInputsLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel1)
+                    .addComponent(spinerPorcentajeArea, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(18, 18, 18)
+                .addGroup(contenidoAreaInputsLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel3)
-                    .addComponent(txtAñoArea, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(44, 44, 44)
+                    .addComponent(spinerAñosArea, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(38, 38, 38)
                 .addComponent(btnIngresarDatosReporteArea)
-                .addContainerGap(360, Short.MAX_VALUE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addComponent(jSeparator1, javax.swing.GroupLayout.PREFERRED_SIZE, 10, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(contenidoAreaInputsLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel6)
+                    .addComponent(idretencionarea)
+                    .addComponent(jLabel4))
+                .addGap(18, 18, 18)
+                .addComponent(btnModificarRetencionArea)
+                .addContainerGap(272, Short.MAX_VALUE))
         );
 
         divisionRArea.setLeftComponent(contenidoAreaInputs);
@@ -171,23 +277,44 @@ public class dashboardRetencion extends javax.swing.JFrame {
                 "Title 1", "Title 2", "Title 3", "Title 4"
             }
         ));
+        tablaRetencionArea.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                tablaRetencionAreaMouseClicked(evt);
+            }
+        });
         jScrollPane1.setViewportView(tablaRetencionArea);
+
+        btnEliminarRetencionArea.setBackground(new java.awt.Color(232, 52, 22));
+        btnEliminarRetencionArea.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
+        btnEliminarRetencionArea.setForeground(new java.awt.Color(51, 51, 51));
+        btnEliminarRetencionArea.setText("Eliminar");
+        btnEliminarRetencionArea.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnEliminarRetencionAreaActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout contenidoAreaTablaLayout = new javax.swing.GroupLayout(contenidoAreaTabla);
         contenidoAreaTabla.setLayout(contenidoAreaTablaLayout);
         contenidoAreaTablaLayout.setHorizontalGroup(
             contenidoAreaTablaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(contenidoAreaTablaLayout.createSequentialGroup()
-                .addGap(60, 60, 60)
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 917, Short.MAX_VALUE)
+                .addGroup(contenidoAreaTablaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(contenidoAreaTablaLayout.createSequentialGroup()
+                        .addGap(60, 60, 60)
+                        .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 807, Short.MAX_VALUE))
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, contenidoAreaTablaLayout.createSequentialGroup()
+                        .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(btnEliminarRetencionArea, javax.swing.GroupLayout.PREFERRED_SIZE, 140, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addContainerGap())
         );
         contenidoAreaTablaLayout.setVerticalGroup(
             contenidoAreaTablaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(contenidoAreaTablaLayout.createSequentialGroup()
                 .addGap(60, 60, 60)
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 571, Short.MAX_VALUE)
-                .addContainerGap())
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 551, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(btnEliminarRetencionArea))
         );
 
         divisionRArea.setRightComponent(contenidoAreaTabla);
@@ -198,7 +325,7 @@ public class dashboardRetencion extends javax.swing.JFrame {
             contenidoRetencionAreaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(contenidoRetencionAreaLayout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(divisionRArea, javax.swing.GroupLayout.DEFAULT_SIZE, 1235, Short.MAX_VALUE)
+                .addComponent(divisionRArea)
                 .addContainerGap())
         );
         contenidoRetencionAreaLayout.setVerticalGroup(
@@ -301,18 +428,136 @@ public class dashboardRetencion extends javax.swing.JFrame {
     }//GEN-LAST:event_listAreaActionPerformed
 
     private void btnIngresarDatosReporteAreaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnIngresarDatosReporteAreaActionPerformed
-        
-        if (txtPorcentajeArea.getText().trim().isEmpty() || txtAñoArea.getText().trim().isEmpty()) {
-            JOptionPane.showMessageDialog(this, "Faltan campos por completar", "Informe de retencion de area", 0);
+        DAOArea daoarea = new DAOArea();
+        DAORetencionArea daoaretencionarea = new DAORetencionArea();
+        DefaultTableModel DatosTablaArea = new DefaultTableModel();
+        DatosTablaArea = daoarea.listaArea();
+        int idArea = 0;
+        float porcentaje = 0;
+        int año = 0;
+        boolean validador = false;
+        if (spinerAñosArea.getValue().toString().isEmpty() || spinerPorcentajeArea.getValue().toString().isEmpty() || listArea.getSelectedItem().toString().equals("")) {
+            JOptionPane.showMessageDialog(this, "Faltan campos por completar", "Informacion", 1);
         }else{
-          DAOArea daoarea = new DAOArea();
+            /*
+            try{
+                porcentaje = Integer.parseInt(spinerPorcentajeArea.ge);
+            }catch(NumberFormatException e){
+                System.out.println(e.getLocalizedMessage());
+                JOptionPane.showMessageDialog(this, "Ingrese solo datos numericos en porcentaje", "Informacion", 1);
+            }
+            */
+            //if (rootPaneCheckingEnabled) {
+                /*
+                amountFormat = NumberFormat.getNumberInstance();
 
-        daoarea.AgregarArea(txtPorcentajeArea.getText().trim().toUpperCase());
+                amountField = new JFormattedTextField(amountFormat);
+                amountField.setValue(new Double(amount));
+                amountField.setColumns(10);
+                amountField.addPropertyChangeListener("value", this);
+                */
+           // }
+            
+          for (int i = 0; i < DatosTablaArea.getRowCount(); i++) {
+               if (DatosTablaArea.getValueAt(i, 1).toString().equals(listArea.getSelectedItem().toString())){
+                   idArea = (int) DatosTablaArea.getValueAt(i, 0);
+                   validador = true;
+                   break;
+               }else{
+                 validador = false;
+               } 
+            }
+            if (validador) {
+                try {
+                     spinerAñosArea.commitEdit();
+                     spinerPorcentajeArea.commitEdit();
+                     año = (int)spinerAñosArea.getValue();
+                     porcentaje = (float)spinerPorcentajeArea.getValue();
+                 } catch ( java.text.ParseException e ){};
+
+                   daoaretencionarea.AgregarProncentajeRetencionArea(porcentaje, idArea, año);
+                   //daoarea.AgregarArea(txtPorcentajeArea.getText().trim().toUpperCase());
+                   DatosTablaArea();
+            }
         }
         
         
         
     }//GEN-LAST:event_btnIngresarDatosReporteAreaActionPerformed
+
+    private void tablaRetencionAreaMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tablaRetencionAreaMouseClicked
+        DefaultTableModel model = (DefaultTableModel) this.tablaRetencionArea.getModel();        
+        int i = tablaRetencionArea.getSelectedRow();
+            idretencionarea.setText(String.valueOf(tablaRetencionArea.getValueAt(i, 0)));
+            listArea.setSelectedItem(String.valueOf(tablaRetencionArea.getValueAt(i, 1)));
+            spinerAñosArea.setValue((int)(tablaRetencionArea.getValueAt(i, 3)));
+            spinerPorcentajeArea.setValue((double)(tablaRetencionArea.getValueAt(i, 2)));
+        
+    }//GEN-LAST:event_tablaRetencionAreaMouseClicked
+
+    private void btnEliminarRetencionAreaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnEliminarRetencionAreaActionPerformed
+        if (idretencionarea.getText().trim().isEmpty()) {
+            JOptionPane.showMessageDialog(this, "No hay ningun elemento selecionado", "Informacion", 1);
+        }else{
+        DAORetencionArea daoretencionarea = new DAORetencionArea();
+        try {
+            daoretencionarea.EliminarRetencionArea(Integer.parseInt(idretencionarea.getText()));
+            DatosTablaArea();
+        } catch (NumberFormatException e) {
+            
+        }
+        
+        idretencionarea.setText("");
+        listArea.setSelectedIndex(0);
+        spinerAñosArea.setValue(2000);
+        spinerPorcentajeArea.setValue(50);
+        }
+        
+        
+
+        
+    }//GEN-LAST:event_btnEliminarRetencionAreaActionPerformed
+
+    private void btnModificarRetencionAreaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnModificarRetencionAreaActionPerformed
+        if (idretencionarea.getText().trim().isEmpty()) {
+            JOptionPane.showMessageDialog(this, "No hay ningun elemento selecionado", "Informacion", 1);
+        }else{
+            
+        DAOArea daoarea = new DAOArea();
+        DAORetencionArea daoaretencionarea = new DAORetencionArea();
+        DefaultTableModel DatosTablaArea2 = new DefaultTableModel();
+        DatosTablaArea2 = daoarea.listaArea();
+        int idArea = 0;
+        float porcentaje = 0;
+        int año = 0;
+        int idRetencion = Integer.parseInt(idretencionarea.getText());
+        int i2 = tablaRetencionArea.getSelectedRow();
+        int idRetencionArea = Integer.parseInt(idretencionarea.getText());
+        boolean validador = false;
+        if (spinerAñosArea.getValue().toString().isEmpty() || spinerPorcentajeArea.getValue().toString().isEmpty() || listArea.getSelectedItem().toString().equals("")) {
+            JOptionPane.showMessageDialog(this, "Faltan campos por completar", "Informacion", 1);
+        }else{
+          for (int i = 0; i < DatosTablaArea2.getRowCount(); i++) {
+               if (DatosTablaArea2.getValueAt(i, 1).toString().equals(listArea.getSelectedItem().toString())){
+                   idArea = (int) DatosTablaArea2.getValueAt(i, 0);
+                   validador = true;
+                   break;
+               }else{
+                 validador = false;
+               } 
+            }
+            if (validador) {
+                try {
+                     spinerAñosArea.commitEdit();
+                     spinerPorcentajeArea.commitEdit();
+                     año = (int)spinerAñosArea.getValue();
+                     porcentaje = (float)spinerPorcentajeArea.getValue();
+                 } catch ( java.text.ParseException e ){};
+                 daoaretencionarea.ModificarReporte(idRetencion, idArea, idRetencionArea, porcentaje, año);
+        }
+        }
+        }
+    }//GEN-LAST:event_btnModificarRetencionAreaActionPerformed
 
     /**
      * @param args the command line arguments
@@ -351,7 +596,9 @@ public class dashboardRetencion extends javax.swing.JFrame {
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JPanel Inicio;
+    private javax.swing.JButton btnEliminarRetencionArea;
     private javax.swing.JButton btnIngresarDatosReporteArea;
+    private javax.swing.JButton btnModificarRetencionArea;
     private javax.swing.JPanel contenidoAreaInputs;
     private javax.swing.JPanel contenidoAreaTabla;
     private javax.swing.JPanel contenidoRetencionAnual;
@@ -361,16 +608,20 @@ public class dashboardRetencion extends javax.swing.JFrame {
     private javax.swing.JPanel contenidoRetencionSede;
     private javax.swing.JPanel contenidoRetencionZona;
     private javax.swing.JSplitPane divisionRArea;
+    private javax.swing.JLabel idretencionarea;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
+    private javax.swing.JLabel jLabel4;
     private javax.swing.JLabel jLabel5;
+    private javax.swing.JLabel jLabel6;
     private javax.swing.JOptionPane jOptionPane1;
     private javax.swing.JScrollPane jScrollPane1;
+    private javax.swing.JSeparator jSeparator1;
     private javax.swing.JComboBox<String> listArea;
     private javax.swing.JTabbedPane menuTabsDashboard;
+    private javax.swing.JSpinner spinerAñosArea;
+    private javax.swing.JSpinner spinerPorcentajeArea;
     private javax.swing.JTable tablaRetencionArea;
-    private javax.swing.JTextField txtAñoArea;
-    private javax.swing.JTextField txtPorcentajeArea;
     // End of variables declaration//GEN-END:variables
 }

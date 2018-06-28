@@ -10,9 +10,6 @@ import java.sql.ResultSet;
 import java.sql.Statement;
 import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
-import modelo.Reporte;
-import informeRetencion.CrudReporte;
-
 /**
  *
  * @author YAC
@@ -251,8 +248,8 @@ public class IngresoReportes extends javax.swing.JFrame {
 
     private void btnModificarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnModificarActionPerformed
         // TODO add your handling code here:
-        CrudReporte Report = new CrudReporte();
-        Report.ModificarReporte(txtIdReport.getText(), txtFechaReport.getText(), txtResponReport.getText(), txtJefeArea.getText(), txtAspecto.getText(), txtJornada.getText());
+        //CrudReporte Report = new CrudReporte();
+        //Report.ModificarReporte(txtIdReport.getText(), txtFechaReport.getText(), txtResponReport.getText(), txtJefeArea.getText(), txtAspecto.getText(), txtJornada.getText());
 
     }//GEN-LAST:event_btnModificarActionPerformed
 
@@ -263,9 +260,7 @@ public class IngresoReportes extends javax.swing.JFrame {
     private void btnVolverActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnVolverActionPerformed
         // TODO add your handling code here:
         this.hide();
-        dashboardAdmin frm = new dashboardAdmin();
-        frm.setVisible(true);
-        this.dispose();
+        
 
     }//GEN-LAST:event_btnVolverActionPerformed
 
@@ -276,8 +271,8 @@ public class IngresoReportes extends javax.swing.JFrame {
 
     private void btnIngresarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnIngresarActionPerformed
         // TODO add your handling code here:
-        CrudReporte Report = new CrudReporte();
-        Report.AgregarReporte(txtIdReport.getText(), txtFechaReport.getText(), txtResponReport.getText(), txtJefeArea.getText(), txtAspecto.getText(), txtJornada.getText());
+        //CrudReporte Report = new CrudReporte();
+        //Report.AgregarReporte(txtIdReport.getText(), txtFechaReport.getText(), txtResponReport.getText(), txtJefeArea.getText(), txtAspecto.getText(), txtJornada.getText());
 
     }//GEN-LAST:event_btnIngresarActionPerformed
 
@@ -303,13 +298,13 @@ public class IngresoReportes extends javax.swing.JFrame {
 
     private void btnEliminarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnEliminarActionPerformed
         // TODO add your handling code here:
-        CrudReporte report = new CrudReporte();
-        report.EliminarReporte(txtIdReport.getText());
+        //CrudReporte report = new CrudReporte();
+        //report.EliminarReporte(txtIdReport.getText());
     }//GEN-LAST:event_btnEliminarActionPerformed
     public void CargarDatos() {
-        CrudReporte Report = new CrudReporte();
+        //CrudReporte Report = new CrudReporte();
         DefaultTableModel model = new DefaultTableModel();
-        model = Report.lista();
+        //model = Report.lista();
         tblReport.setModel(model);
     }
 
