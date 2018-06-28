@@ -69,7 +69,6 @@ public class dashboardAdmin extends javax.swing.JFrame {
         jPanel1.setBorder(javax.swing.BorderFactory.createTitledBorder(null, "Gestion Docentes", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Times New Roman", 0, 18))); // NOI18N
 
         btnRegdocente.setFont(new java.awt.Font("Times New Roman", 0, 14)); // NOI18N
-        btnRegdocente.setIcon(new javax.swing.ImageIcon(getClass().getResource("/vistas/iconos/boton_nuevo.png"))); // NOI18N
         btnRegdocente.setText("Registrar Docentes");
         btnRegdocente.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -78,7 +77,6 @@ public class dashboardAdmin extends javax.swing.JFrame {
         });
 
         btnbusDocente.setFont(new java.awt.Font("Times New Roman", 0, 14)); // NOI18N
-        btnbusDocente.setIcon(new javax.swing.ImageIcon(getClass().getResource("/vistas/iconos/boton_buscar.png"))); // NOI18N
         btnbusDocente.setText("Buscar Docentes");
         btnbusDocente.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -87,7 +85,7 @@ public class dashboardAdmin extends javax.swing.JFrame {
         });
 
         btnAntLab.setFont(new java.awt.Font("Times New Roman", 0, 14)); // NOI18N
-        btnAntLab.setIcon(new javax.swing.ImageIcon(getClass().getResource("/vistas/iconos/boton_consulta.png"))); // NOI18N
+        btnAntLab.setIcon(new javax.swing.ImageIcon(getClass().getResource("/recursos/109846.png"))); // NOI18N
         btnAntLab.setText("Registrar Antecendtes Laborales");
         btnAntLab.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -96,7 +94,7 @@ public class dashboardAdmin extends javax.swing.JFrame {
         });
 
         btnRegistros.setFont(new java.awt.Font("Times New Roman", 0, 14)); // NOI18N
-        btnRegistros.setIcon(new javax.swing.ImageIcon(getClass().getResource("/vistas/iconos/boton_consulta.png"))); // NOI18N
+        btnRegistros.setIcon(new javax.swing.ImageIcon(getClass().getResource("/recursos/boton_consulta.png"))); // NOI18N
         btnRegistros.setText("Registros del docente");
         btnRegistros.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -105,7 +103,7 @@ public class dashboardAdmin extends javax.swing.JFrame {
         });
 
         btnantAcaDoc.setFont(new java.awt.Font("Times New Roman", 0, 14)); // NOI18N
-        btnantAcaDoc.setIcon(new javax.swing.ImageIcon(getClass().getResource("/vistas/iconos/boton_libro.png"))); // NOI18N
+        btnantAcaDoc.setIcon(new javax.swing.ImageIcon(getClass().getResource("/recursos/boton_nuevo.png"))); // NOI18N
         btnantAcaDoc.setText("Registrar Antecedentes Academicos");
         btnantAcaDoc.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -146,7 +144,6 @@ public class dashboardAdmin extends javax.swing.JFrame {
         jPanel2.setBorder(javax.swing.BorderFactory.createTitledBorder(null, "Gestor de Reportes", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Times New Roman", 0, 18))); // NOI18N
 
         jButton2.setFont(new java.awt.Font("Times New Roman", 0, 14)); // NOI18N
-        jButton2.setIcon(new javax.swing.ImageIcon(getClass().getResource("/vistas/iconos/109846.png"))); // NOI18N
         jButton2.setText("Gestion Reportes");
         jButton2.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -174,15 +171,22 @@ public class dashboardAdmin extends javax.swing.JFrame {
         jPanel4.setBorder(javax.swing.BorderFactory.createTitledBorder(null, "Gestion de datos", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Times New Roman", 0, 18))); // NOI18N
 
         jButton9.setFont(new java.awt.Font("Times New Roman", 0, 14)); // NOI18N
-        jButton9.setIcon(new javax.swing.ImageIcon(getClass().getResource("/vistas/iconos/flecha-de-descarga.png"))); // NOI18N
         jButton9.setText("Importar Datos en excel");
+        jButton9.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton9ActionPerformed(evt);
+            }
+        });
 
         jButton10.setFont(new java.awt.Font("Times New Roman", 0, 14)); // NOI18N
-        jButton10.setIcon(new javax.swing.ImageIcon(getClass().getResource("/vistas/iconos/exportar.png"))); // NOI18N
         jButton10.setText("Exportar datos a un excel");
+        jButton10.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton10ActionPerformed(evt);
+            }
+        });
 
         btnGenerarReporte.setFont(new java.awt.Font("Times New Roman", 0, 14)); // NOI18N
-        btnGenerarReporte.setIcon(new javax.swing.ImageIcon(getClass().getResource("/vistas/iconos/exportar.png"))); // NOI18N
         btnGenerarReporte.setText("Generar Reporte");
 
         javax.swing.GroupLayout jPanel4Layout = new javax.swing.GroupLayout(jPanel4);
@@ -211,7 +215,6 @@ public class dashboardAdmin extends javax.swing.JFrame {
 
         jPanel3.setBorder(javax.swing.BorderFactory.createTitledBorder("Sesion Iniciada por:"));
 
-        jButton1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/vistas/iconos/salir.png"))); // NOI18N
         jButton1.setText("Cerrar Sesion");
         jButton1.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -252,7 +255,7 @@ public class dashboardAdmin extends javax.swing.JFrame {
         jLabel1.setFont(new java.awt.Font("Times New Roman", 1, 24)); // NOI18N
         jLabel1.setText("Menu Principal");
 
-        jLabel2.setIcon(new javax.swing.ImageIcon(getClass().getResource("/vistas/iconos/Imagen1.png"))); // NOI18N
+        jLabel2.setIcon(new javax.swing.ImageIcon(getClass().getResource("/recursos/Imagen1.png"))); // NOI18N
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -363,6 +366,14 @@ public class dashboardAdmin extends javax.swing.JFrame {
             
         }
     }//GEN-LAST:event_jButton1ActionPerformed
+
+    private void jButton9ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton9ActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_jButton9ActionPerformed
+
+    private void jButton10ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton10ActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_jButton10ActionPerformed
 
     /**
      * @param args the command line arguments

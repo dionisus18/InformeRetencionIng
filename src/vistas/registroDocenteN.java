@@ -159,7 +159,6 @@ public class registroDocenteN extends javax.swing.JFrame {
         inputID.setEditable(false);
 
         btnAgregar.setFont(new java.awt.Font("Times New Roman", 0, 14)); // NOI18N
-        btnAgregar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/vistas/iconos/boton_nuevo.png"))); // NOI18N
         btnAgregar.setText("Agregar");
         btnAgregar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -168,7 +167,6 @@ public class registroDocenteN extends javax.swing.JFrame {
         });
 
         bntMod.setFont(new java.awt.Font("Times New Roman", 0, 14)); // NOI18N
-        bntMod.setIcon(new javax.swing.ImageIcon(getClass().getResource("/vistas/iconos/boton_modificar.png"))); // NOI18N
         bntMod.setText("Modificar");
         bntMod.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -177,7 +175,6 @@ public class registroDocenteN extends javax.swing.JFrame {
         });
 
         bntEli.setFont(new java.awt.Font("Times New Roman", 0, 14)); // NOI18N
-        bntEli.setIcon(new javax.swing.ImageIcon(getClass().getResource("/vistas/iconos/boton_eliminar.png"))); // NOI18N
         bntEli.setText("Eliminar");
         bntEli.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -186,7 +183,6 @@ public class registroDocenteN extends javax.swing.JFrame {
         });
 
         btnMenu.setFont(new java.awt.Font("Times New Roman", 0, 14)); // NOI18N
-        btnMenu.setIcon(new javax.swing.ImageIcon(getClass().getResource("/vistas/iconos/boton_salir.png"))); // NOI18N
         btnMenu.setText("Volver al menu");
         btnMenu.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -195,7 +191,6 @@ public class registroDocenteN extends javax.swing.JFrame {
         });
 
         btnBuscar.setFont(new java.awt.Font("Times New Roman", 0, 14)); // NOI18N
-        btnBuscar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/vistas/iconos/boton_buscar.png"))); // NOI18N
         btnBuscar.setText("Buscar");
         btnBuscar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {

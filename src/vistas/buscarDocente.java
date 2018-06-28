@@ -72,7 +72,6 @@ public class buscarDocente extends javax.swing.JFrame {
         jLabel2.setText("Filtrar por palabra:");
 
         btnBuscar.setFont(new java.awt.Font("Times New Roman", 0, 12)); // NOI18N
-        btnBuscar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/vistas/iconos/boton_buscar.png"))); // NOI18N
         btnBuscar.setText("Buscar");
         btnBuscar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -97,7 +96,6 @@ public class buscarDocente extends javax.swing.JFrame {
         jScrollPane1.setViewportView(tablaAntP);
 
         btnVolver.setFont(new java.awt.Font("Times New Roman", 0, 14)); // NOI18N
-        btnVolver.setIcon(new javax.swing.ImageIcon(getClass().getResource("/vistas/iconos/boton_regresar.png"))); // NOI18N
         btnVolver.setText("Volver al menu");
         btnVolver.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -106,7 +104,6 @@ public class buscarDocente extends javax.swing.JFrame {
         });
 
         btnActTabla.setFont(new java.awt.Font("Times New Roman", 0, 12)); // NOI18N
-        btnActTabla.setIcon(new javax.swing.ImageIcon(getClass().getResource("/vistas/iconos/boton_consulta.png"))); // NOI18N
         btnActTabla.setText("Actualizar tabla ");
         btnActTabla.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
