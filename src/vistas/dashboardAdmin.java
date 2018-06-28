@@ -13,29 +13,11 @@ import javax.swing.JOptionPane;
  */
 public class dashboardAdmin extends javax.swing.JFrame {
 
-    public static String user;
-    public static String rut;
-
-    /**
-     * Creates new form dashboardAdmiin
-     */
-    public dashboardAdmin() {
+        public dashboardAdmin() {
         initComponents();
-        inicio();
-
     }
 
-    public void inicio(){
-        this.lblRut.setVisible(false);
-        if(this.lblRut.getText().equals("jLabel3") && this.lblLogin.getText().equals("lblLogin")){
-            this.lblRut.setText(rut);
-            this.lblLogin.setText(user);
-        }else{
-        user = this.lblLogin.getText();
-        rut = this.lblRut.getText();
-            System.out.println(user+" dash");
-        }
-    }
+
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -57,10 +39,6 @@ public class dashboardAdmin extends javax.swing.JFrame {
         jButton9 = new javax.swing.JButton();
         jButton10 = new javax.swing.JButton();
         btnGenerarReporte = new javax.swing.JButton();
-        jPanel3 = new javax.swing.JPanel();
-        jButton1 = new javax.swing.JButton();
-        lblLogin = new javax.swing.JLabel();
-        lblRut = new javax.swing.JLabel();
         jLabel1 = new javax.swing.JLabel();
         jLabel2 = new javax.swing.JLabel();
 
@@ -68,7 +46,7 @@ public class dashboardAdmin extends javax.swing.JFrame {
 
         jPanel1.setBorder(javax.swing.BorderFactory.createTitledBorder(null, "Gestion Docentes", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Times New Roman", 0, 18))); // NOI18N
 
-        btnRegdocente.setFont(new java.awt.Font("Times New Roman", 0, 14)); // NOI18N
+        btnRegdocente.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
         btnRegdocente.setText("Registrar Docentes");
         btnRegdocente.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -76,7 +54,7 @@ public class dashboardAdmin extends javax.swing.JFrame {
             }
         });
 
-        btnbusDocente.setFont(new java.awt.Font("Times New Roman", 0, 14)); // NOI18N
+        btnbusDocente.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
         btnbusDocente.setText("Buscar Docentes");
         btnbusDocente.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -84,7 +62,7 @@ public class dashboardAdmin extends javax.swing.JFrame {
             }
         });
 
-        btnAntLab.setFont(new java.awt.Font("Times New Roman", 0, 14)); // NOI18N
+        btnAntLab.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
         btnAntLab.setIcon(new javax.swing.ImageIcon(getClass().getResource("/recursos/109846.png"))); // NOI18N
         btnAntLab.setText("Registrar Antecendtes Laborales");
         btnAntLab.addActionListener(new java.awt.event.ActionListener() {
@@ -93,7 +71,7 @@ public class dashboardAdmin extends javax.swing.JFrame {
             }
         });
 
-        btnRegistros.setFont(new java.awt.Font("Times New Roman", 0, 14)); // NOI18N
+        btnRegistros.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
         btnRegistros.setIcon(new javax.swing.ImageIcon(getClass().getResource("/recursos/boton_consulta.png"))); // NOI18N
         btnRegistros.setText("Registros del docente");
         btnRegistros.addActionListener(new java.awt.event.ActionListener() {
@@ -102,7 +80,7 @@ public class dashboardAdmin extends javax.swing.JFrame {
             }
         });
 
-        btnantAcaDoc.setFont(new java.awt.Font("Times New Roman", 0, 14)); // NOI18N
+        btnantAcaDoc.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
         btnantAcaDoc.setIcon(new javax.swing.ImageIcon(getClass().getResource("/recursos/boton_nuevo.png"))); // NOI18N
         btnantAcaDoc.setText("Registrar Antecedentes Academicos");
         btnantAcaDoc.addActionListener(new java.awt.event.ActionListener() {
@@ -118,7 +96,7 @@ public class dashboardAdmin extends javax.swing.JFrame {
             .addGroup(jPanel1Layout.createSequentialGroup()
                 .addGap(20, 20, 20)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                    .addComponent(btnAntLab, javax.swing.GroupLayout.DEFAULT_SIZE, 273, Short.MAX_VALUE)
+                    .addComponent(btnAntLab, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addComponent(btnbusDocente, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addComponent(btnRegdocente, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addComponent(btnRegistros, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
@@ -143,7 +121,7 @@ public class dashboardAdmin extends javax.swing.JFrame {
 
         jPanel2.setBorder(javax.swing.BorderFactory.createTitledBorder(null, "Gestor de Reportes", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Times New Roman", 0, 18))); // NOI18N
 
-        jButton2.setFont(new java.awt.Font("Times New Roman", 0, 14)); // NOI18N
+        jButton2.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
         jButton2.setText("Gestion Reportes");
         jButton2.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -170,7 +148,7 @@ public class dashboardAdmin extends javax.swing.JFrame {
 
         jPanel4.setBorder(javax.swing.BorderFactory.createTitledBorder(null, "Gestion de datos", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Times New Roman", 0, 18))); // NOI18N
 
-        jButton9.setFont(new java.awt.Font("Times New Roman", 0, 14)); // NOI18N
+        jButton9.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
         jButton9.setText("Importar Datos en excel");
         jButton9.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -178,7 +156,7 @@ public class dashboardAdmin extends javax.swing.JFrame {
             }
         });
 
-        jButton10.setFont(new java.awt.Font("Times New Roman", 0, 14)); // NOI18N
+        jButton10.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
         jButton10.setText("Exportar datos a un excel");
         jButton10.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -186,7 +164,7 @@ public class dashboardAdmin extends javax.swing.JFrame {
             }
         });
 
-        btnGenerarReporte.setFont(new java.awt.Font("Times New Roman", 0, 14)); // NOI18N
+        btnGenerarReporte.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
         btnGenerarReporte.setText("Generar Reporte");
 
         javax.swing.GroupLayout jPanel4Layout = new javax.swing.GroupLayout(jPanel4);
@@ -213,46 +191,7 @@ public class dashboardAdmin extends javax.swing.JFrame {
                 .addContainerGap(53, Short.MAX_VALUE))
         );
 
-        jPanel3.setBorder(javax.swing.BorderFactory.createTitledBorder("Sesion Iniciada por:"));
-
-        jButton1.setText("Cerrar Sesion");
-        jButton1.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton1ActionPerformed(evt);
-            }
-        });
-
-        lblLogin.setFont(new java.awt.Font("Times New Roman", 0, 14)); // NOI18N
-        lblLogin.setText("lblLogin");
-
-        lblRut.setText("jLabel3");
-
-        javax.swing.GroupLayout jPanel3Layout = new javax.swing.GroupLayout(jPanel3);
-        jPanel3.setLayout(jPanel3Layout);
-        jPanel3Layout.setHorizontalGroup(
-            jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel3Layout.createSequentialGroup()
-                .addGap(28, 28, 28)
-                .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(jPanel3Layout.createSequentialGroup()
-                        .addComponent(lblLogin)
-                        .addGap(28, 28, 28)
-                        .addComponent(lblRut))
-                    .addComponent(jButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 154, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addContainerGap(29, Short.MAX_VALUE))
-        );
-        jPanel3Layout.setVerticalGroup(
-            jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel3Layout.createSequentialGroup()
-                .addGap(0, 11, Short.MAX_VALUE)
-                .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(lblLogin)
-                    .addComponent(lblRut))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(jButton1))
-        );
-
-        jLabel1.setFont(new java.awt.Font("Times New Roman", 1, 24)); // NOI18N
+        jLabel1.setFont(new java.awt.Font("Segoe UI", 1, 24)); // NOI18N
         jLabel1.setText("Menu Principal");
 
         jLabel2.setIcon(new javax.swing.ImageIcon(getClass().getResource("/recursos/Imagen1.png"))); // NOI18N
@@ -263,7 +202,7 @@ public class dashboardAdmin extends javax.swing.JFrame {
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
                 .addGap(29, 29, 29)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createSequentialGroup()
                         .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(53, 53, 53)
@@ -272,11 +211,9 @@ public class dashboardAdmin extends javax.swing.JFrame {
                             .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
                     .addGroup(layout.createSequentialGroup()
                         .addComponent(jLabel2, javax.swing.GroupLayout.PREFERRED_SIZE, 147, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(134, 134, 134)
-                        .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 171, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addComponent(jPanel3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addContainerGap(22, Short.MAX_VALUE))
+                        .addGap(136, 136, 136)
+                        .addComponent(jLabel1)))
+                .addContainerGap(18, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -284,9 +221,8 @@ public class dashboardAdmin extends javax.swing.JFrame {
                 .addContainerGap()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jPanel3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jLabel2, javax.swing.GroupLayout.PREFERRED_SIZE, 23, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 57, Short.MAX_VALUE)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createSequentialGroup()
                         .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -309,8 +245,6 @@ public class dashboardAdmin extends javax.swing.JFrame {
 
     private void btnbusDocenteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnbusDocenteActionPerformed
         buscarDocente frm = new buscarDocente();
-        buscarDocente.user = this.user;
-        buscarDocente.rut = this.rut;
         //dashboardAdmin.lblLogin.setText("Bienvenido: " + us[0]);
         //dashboardAdmin.lblLogin1.setText(us[1]);
         frm.setLocationRelativeTo(null);
@@ -320,8 +254,6 @@ public class dashboardAdmin extends javax.swing.JFrame {
 
     private void btnAntLabActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAntLabActionPerformed
         seleccionDocentes frm = new seleccionDocentes();
-        seleccionDocentes.user = this.user;
-        seleccionDocentes.rut = this.rut;
         frm.lblOP.setText("1");
         frm.setLocationRelativeTo(null);
         frm.setVisible(true);
@@ -330,8 +262,6 @@ public class dashboardAdmin extends javax.swing.JFrame {
 
     private void btnantAcaDocActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnantAcaDocActionPerformed
         seleccionDocentes frm = new seleccionDocentes();
-        seleccionDocentes.user = this.user;
-        seleccionDocentes.rut = this.rut;
         frm.lblOP.setText("2");
         frm.setLocationRelativeTo(null);
         frm.setVisible(true);
@@ -340,8 +270,6 @@ public class dashboardAdmin extends javax.swing.JFrame {
 
     private void btnRegistrosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnRegistrosActionPerformed
         RegistroDocenteDetalle frm = new RegistroDocenteDetalle();
-        RegistroDocenteDetalle.user = this.user;
-        RegistroDocenteDetalle.rut = this.rut;
         frm.setLocationRelativeTo(null);
         frm.setVisible(true);
         this.dispose();
@@ -349,23 +277,10 @@ public class dashboardAdmin extends javax.swing.JFrame {
 
     private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
         IngresoReportes frm = new IngresoReportes();
-        IngresoReportes.user = this.user;
-        IngresoReportes.rut = this.rut;
         frm.setLocationRelativeTo(null);
         frm.setVisible(true);
         this.dispose();
     }//GEN-LAST:event_jButton2ActionPerformed
-
-    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
-        int dialogButton = JOptionPane.YES_NO_OPTION;
-        JOptionPane.showConfirmDialog(null, "¿Desea Cerrar Sesion?", "", dialogButton);
-        if (dialogButton == JOptionPane.YES_OPTION) {
-            
-            
-            this.dispose();
-            
-        }
-    }//GEN-LAST:event_jButton1ActionPerformed
 
     private void jButton9ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton9ActionPerformed
         // TODO add your handling code here:
@@ -386,7 +301,7 @@ public class dashboardAdmin extends javax.swing.JFrame {
          */
         try {
             for (javax.swing.UIManager.LookAndFeelInfo info : javax.swing.UIManager.getInstalledLookAndFeels()) {
-                if ("Nimbus".equals(info.getName())) {
+                if ("Windows".equals(info.getName())) {
                     javax.swing.UIManager.setLookAndFeel(info.getClassName());
                     break;
                 }
@@ -418,7 +333,6 @@ public class dashboardAdmin extends javax.swing.JFrame {
     private javax.swing.JButton btnRegistros;
     private javax.swing.JButton btnantAcaDoc;
     private javax.swing.JButton btnbusDocente;
-    private javax.swing.JButton jButton1;
     private javax.swing.JButton jButton10;
     private javax.swing.JButton jButton2;
     private javax.swing.JButton jButton9;
@@ -426,9 +340,6 @@ public class dashboardAdmin extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel2;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;
-    private javax.swing.JPanel jPanel3;
     private javax.swing.JPanel jPanel4;
-    public static javax.swing.JLabel lblLogin;
-    public static javax.swing.JLabel lblRut;
     // End of variables declaration//GEN-END:variables
 }

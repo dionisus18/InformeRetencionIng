@@ -168,8 +168,6 @@ public class buscarDocente extends javax.swing.JFrame {
         // TODO add your handling code here:
 
         dashboardAdmin frm = new dashboardAdmin();
-        dashboardAdmin.user = this.user;
-        dashboardAdmin.rut = this.rut;
         frm.setLocationRelativeTo(null);
         frm.setVisible(true);
         

@@ -347,8 +347,6 @@ public class registroDocenteN extends javax.swing.JFrame {
 
         frm.setLocationRelativeTo(null);
         frm.setVisible(true);
-        dashboardAdmin.user = this.user;
-        dashboardAdmin.rut = this.rut;
         this.dispose();
     }//GEN-LAST:event_btnMenuActionPerformed
 

@@ -6,21 +6,10 @@
 package vistas;
 
 import controlador.CrudPeriodo;
-import static vistas.registroDocenteN.inputAI;
-import static vistas.registroDocenteN.inputAM;
-import static vistas.registroDocenteN.inputAP;
-import static vistas.registroDocenteN.inputCE;
-import static vistas.registroDocenteN.inputD;
-import static vistas.registroDocenteN.inputFN;
-import static vistas.registroDocenteN.inputID;
-import static vistas.registroDocenteN.inputN;
-import static vistas.registroDocenteN.inputNC;
-import static vistas.registroDocenteN.inputTC;
 import java.util.ArrayList;
 import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
 import informeRetencion.CrudAntAca;
-import informeRetencion.CrudAntPer;
 
 /**
  *
@@ -348,8 +337,6 @@ public class AntecentesAcademicos extends javax.swing.JFrame {
 
     private void jButton5ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton5ActionPerformed
         dashboardAdmin frm = new dashboardAdmin();
-        dashboardAdmin.user = this.user;
-        dashboardAdmin.rut = this.rut;
         frm.setLocationRelativeTo(null);
         frm.setVisible(true);
         dispose();

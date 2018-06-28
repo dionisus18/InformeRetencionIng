@@ -129,8 +129,6 @@ public class seleccionDocentes extends javax.swing.JFrame {
 
     private void btnMenuActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnMenuActionPerformed
         dashboardAdmin frm = new dashboardAdmin();
-        dashboardAdmin.user = this.user;
-        dashboardAdmin.rut = this.rut;
         frm.setLocationRelativeTo(null);
         frm.setVisible(true);
         this.dispose();
