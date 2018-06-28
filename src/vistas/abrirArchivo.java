@@ -147,7 +147,7 @@ public class abrirArchivo extends javax.swing.JFrame {
                             Conexion.ruta =documento;
                             this.lblDB.setText(documento);
                             JOptionPane.showMessageDialog(null, "Base de datos local carga correctamente", "", 1);
-                            dashboardAdmin frm = new dashboardAdmin();
+                            dashboardRetencion frm = new dashboardRetencion();
                             frm.setLocationRelativeTo(null);
                             frm.setVisible(true);
                             this.dispose();
