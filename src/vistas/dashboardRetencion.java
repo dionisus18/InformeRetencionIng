@@ -34,7 +34,7 @@ public class dashboardRetencion extends javax.swing.JFrame {
         DatosSpinerPorcentajes();
     }
 
-    public void DatosTablaArea(){
+    public final void DatosTablaArea(){
         DAORetencionArea daoaretencionarea = new DAORetencionArea();
         DefaultTableModel DatosTablaArea = new DefaultTableModel();
         DatosTablaArea = daoaretencionarea.listaRetencion();
@@ -45,7 +45,7 @@ public class dashboardRetencion extends javax.swing.JFrame {
  */
     }
     
-    public void DatosSpinerPorcentajes(){
+    public final void DatosSpinerPorcentajes(){
     Float value = new Float(50.20);
     Float step = new Float(0.1);
     Float Min = new Float(0.1);
@@ -54,7 +54,7 @@ public class dashboardRetencion extends javax.swing.JFrame {
     spinerPorcentajeArea.setModel(model);
     }
     
-    public void DatosSpinerAños(){
+    public final void DatosSpinerAños(){
     Instant instant = Instant.now();
     ZoneId z = ZoneId.of( "America/Santiago" );
     ZonedDateTime zdt = instant.atZone( z );
@@ -73,7 +73,7 @@ public class dashboardRetencion extends javax.swing.JFrame {
     spinerAñosArea.setModel(model);     
     }
     
-    public void DatosListArea(){
+    public final void DatosListArea(){
         DAOArea daoarea = new DAOArea();
         DefaultTableModel DatosTablaArea = new DefaultTableModel();
         DatosTablaArea = daoarea.listaArea();
@@ -122,7 +122,45 @@ public class dashboardRetencion extends javax.swing.JFrame {
         tablaRetencionArea = new javax.swing.JTable();
         btnEliminarRetencionArea = new javax.swing.JButton();
         contenidoRetencionSede = new javax.swing.JPanel();
+        divisionRSede = new javax.swing.JSplitPane();
+        contenidoSedeInputs = new javax.swing.JPanel();
+        jLabel7 = new javax.swing.JLabel();
+        jLabel8 = new javax.swing.JLabel();
+        jLabel9 = new javax.swing.JLabel();
+        listSede = new javax.swing.JComboBox<>();
+        jLabel10 = new javax.swing.JLabel();
+        btnIngresarDatosReporteSede = new javax.swing.JButton();
+        spinerAñosSede = new javax.swing.JSpinner();
+        spinerPorcentajeSede = new javax.swing.JSpinner();
+        idretencionsede = new javax.swing.JLabel();
+        jSeparator2 = new javax.swing.JSeparator();
+        jLabel11 = new javax.swing.JLabel();
+        jLabel12 = new javax.swing.JLabel();
+        btnModificarRetencionSede = new javax.swing.JButton();
+        contenidoSedeTabla = new javax.swing.JPanel();
+        jScrollPane2 = new javax.swing.JScrollPane();
+        tablaRetencionSede = new javax.swing.JTable();
+        btnEliminarRetencionSede = new javax.swing.JButton();
         contenidoRetencionCarrera = new javax.swing.JPanel();
+        divisionRSede1 = new javax.swing.JSplitPane();
+        contenidoSedeInputs1 = new javax.swing.JPanel();
+        jLabel13 = new javax.swing.JLabel();
+        jLabel14 = new javax.swing.JLabel();
+        jLabel15 = new javax.swing.JLabel();
+        listCarrera = new javax.swing.JComboBox<>();
+        jLabel16 = new javax.swing.JLabel();
+        btnIngresarDatosReporteCarrera = new javax.swing.JButton();
+        spinerAñosCarrera = new javax.swing.JSpinner();
+        spinerPorcentajeCarrera = new javax.swing.JSpinner();
+        idretencionsede1 = new javax.swing.JLabel();
+        jSeparator3 = new javax.swing.JSeparator();
+        jLabel17 = new javax.swing.JLabel();
+        jLabel18 = new javax.swing.JLabel();
+        btnModificarRetencionCarrera = new javax.swing.JButton();
+        contenidoSedeTabla1 = new javax.swing.JPanel();
+        jScrollPane3 = new javax.swing.JScrollPane();
+        tablaRetencionCarrera = new javax.swing.JTable();
+        btnEliminarRetencionCarrera = new javax.swing.JButton();
         contenidoRetencionZona = new javax.swing.JPanel();
         contenidoRetencionAnual = new javax.swing.JPanel();
         contenidoRetencionJornada = new javax.swing.JPanel();
@@ -266,6 +304,7 @@ public class dashboardRetencion extends javax.swing.JFrame {
 
         divisionRArea.setLeftComponent(contenidoAreaInputs);
 
+        tablaRetencionArea.setAutoCreateRowSorter(true);
         tablaRetencionArea.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
                 {null, null, null, null},
@@ -277,9 +316,16 @@ public class dashboardRetencion extends javax.swing.JFrame {
                 "Title 1", "Title 2", "Title 3", "Title 4"
             }
         ));
+        tablaRetencionArea.setFillsViewportHeight(true);
+        tablaRetencionArea.setSelectionMode(javax.swing.ListSelectionModel.SINGLE_SELECTION);
         tablaRetencionArea.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
                 tablaRetencionAreaMouseClicked(evt);
+            }
+        });
+        tablaRetencionArea.addComponentListener(new java.awt.event.ComponentAdapter() {
+            public void componentMoved(java.awt.event.ComponentEvent evt) {
+                tablaRetencionAreaComponentMoved(evt);
             }
         });
         jScrollPane1.setViewportView(tablaRetencionArea);
@@ -338,28 +384,411 @@ public class dashboardRetencion extends javax.swing.JFrame {
 
         menuTabsDashboard.addTab("Retencion por Area", contenidoRetencionArea);
 
+        divisionRSede.setBorder(new javax.swing.border.SoftBevelBorder(javax.swing.border.BevelBorder.RAISED));
+        divisionRSede.setDividerLocation(350);
+        divisionRSede.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
+
+        contenidoSedeInputs.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
+        contenidoSedeInputs.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
+
+        jLabel7.setText("Porcentaje");
+
+        jLabel8.setText("Sede");
+
+        jLabel9.setText("Año");
+
+        listSede.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
+        listSede.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                listSedeActionPerformed(evt);
+            }
+        });
+
+        jLabel10.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
+        jLabel10.setText("Ingreso de Datos Sede");
+
+        btnIngresarDatosReporteSede.setText("Ingresar Datos");
+        btnIngresarDatosReporteSede.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnIngresarDatosReporteSedeActionPerformed(evt);
+            }
+        });
+
+        idretencionsede.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
+        idretencionsede.setText("Valor");
+
+        jLabel11.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
+        jLabel11.setText("ID");
+
+        jLabel12.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
+        jLabel12.setText("Modificación de elemento:");
+
+        btnModificarRetencionSede.setText("Modificar");
+        btnModificarRetencionSede.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnModificarRetencionSedeActionPerformed(evt);
+            }
+        });
+
+        javax.swing.GroupLayout contenidoSedeInputsLayout = new javax.swing.GroupLayout(contenidoSedeInputs);
+        contenidoSedeInputs.setLayout(contenidoSedeInputsLayout);
+        contenidoSedeInputsLayout.setHorizontalGroup(
+            contenidoSedeInputsLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(contenidoSedeInputsLayout.createSequentialGroup()
+                .addGap(40, 40, 40)
+                .addGroup(contenidoSedeInputsLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(contenidoSedeInputsLayout.createSequentialGroup()
+                        .addComponent(jLabel10)
+                        .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                    .addGroup(contenidoSedeInputsLayout.createSequentialGroup()
+                        .addGroup(contenidoSedeInputsLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                            .addGroup(contenidoSedeInputsLayout.createSequentialGroup()
+                                .addGroup(contenidoSedeInputsLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addComponent(jLabel7)
+                                    .addComponent(jLabel8))
+                                .addGap(18, 18, 18)
+                                .addGroup(contenidoSedeInputsLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addComponent(listSede, 0, 166, Short.MAX_VALUE)
+                                    .addComponent(spinerPorcentajeSede)))
+                            .addGroup(javax.swing.GroupLayout.Alignment.LEADING, contenidoSedeInputsLayout.createSequentialGroup()
+                                .addComponent(jLabel9)
+                                .addGap(51, 51, 51)
+                                .addGroup(contenidoSedeInputsLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addComponent(btnIngresarDatosReporteSede, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                    .addComponent(spinerAñosSede, javax.swing.GroupLayout.Alignment.TRAILING))))
+                        .addGap(71, 71, 71))))
+            .addGroup(contenidoSedeInputsLayout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(jSeparator2)
+                .addContainerGap())
+            .addGroup(contenidoSedeInputsLayout.createSequentialGroup()
+                .addGap(39, 39, 39)
+                .addComponent(jLabel12)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addComponent(jLabel11)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(idretencionsede)
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, contenidoSedeInputsLayout.createSequentialGroup()
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(btnModificarRetencionSede, javax.swing.GroupLayout.PREFERRED_SIZE, 163, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(72, 72, 72))
+        );
+        contenidoSedeInputsLayout.setVerticalGroup(
+            contenidoSedeInputsLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(contenidoSedeInputsLayout.createSequentialGroup()
+                .addGap(62, 62, 62)
+                .addComponent(jLabel10)
+                .addGap(49, 49, 49)
+                .addGroup(contenidoSedeInputsLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel8)
+                    .addComponent(listSede, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(18, 18, 18)
+                .addGroup(contenidoSedeInputsLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel7)
+                    .addComponent(spinerPorcentajeSede, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(18, 18, 18)
+                .addGroup(contenidoSedeInputsLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel9)
+                    .addComponent(spinerAñosSede, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(38, 38, 38)
+                .addComponent(btnIngresarDatosReporteSede)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addComponent(jSeparator2, javax.swing.GroupLayout.PREFERRED_SIZE, 10, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(contenidoSedeInputsLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel12)
+                    .addComponent(idretencionsede)
+                    .addComponent(jLabel11))
+                .addGap(18, 18, 18)
+                .addComponent(btnModificarRetencionSede)
+                .addContainerGap(272, Short.MAX_VALUE))
+        );
+
+        divisionRSede.setLeftComponent(contenidoSedeInputs);
+
+        tablaRetencionSede.setAutoCreateRowSorter(true);
+        tablaRetencionSede.setModel(new javax.swing.table.DefaultTableModel(
+            new Object [][] {
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null}
+            },
+            new String [] {
+                "Title 1", "Title 2", "Title 3", "Title 4"
+            }
+        ));
+        tablaRetencionSede.setFillsViewportHeight(true);
+        tablaRetencionSede.setSelectionMode(javax.swing.ListSelectionModel.SINGLE_SELECTION);
+        tablaRetencionSede.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                tablaRetencionSedeMouseClicked(evt);
+            }
+        });
+        tablaRetencionSede.addComponentListener(new java.awt.event.ComponentAdapter() {
+            public void componentMoved(java.awt.event.ComponentEvent evt) {
+                tablaRetencionSedeComponentMoved(evt);
+            }
+        });
+        jScrollPane2.setViewportView(tablaRetencionSede);
+
+        btnEliminarRetencionSede.setBackground(new java.awt.Color(232, 52, 22));
+        btnEliminarRetencionSede.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
+        btnEliminarRetencionSede.setForeground(new java.awt.Color(51, 51, 51));
+        btnEliminarRetencionSede.setText("Eliminar");
+        btnEliminarRetencionSede.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnEliminarRetencionSedeActionPerformed(evt);
+            }
+        });
+
+        javax.swing.GroupLayout contenidoSedeTablaLayout = new javax.swing.GroupLayout(contenidoSedeTabla);
+        contenidoSedeTabla.setLayout(contenidoSedeTablaLayout);
+        contenidoSedeTablaLayout.setHorizontalGroup(
+            contenidoSedeTablaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(contenidoSedeTablaLayout.createSequentialGroup()
+                .addGroup(contenidoSedeTablaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(contenidoSedeTablaLayout.createSequentialGroup()
+                        .addGap(60, 60, 60)
+                        .addComponent(jScrollPane2, javax.swing.GroupLayout.DEFAULT_SIZE, 807, Short.MAX_VALUE))
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, contenidoSedeTablaLayout.createSequentialGroup()
+                        .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(btnEliminarRetencionSede, javax.swing.GroupLayout.PREFERRED_SIZE, 140, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addContainerGap())
+        );
+        contenidoSedeTablaLayout.setVerticalGroup(
+            contenidoSedeTablaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(contenidoSedeTablaLayout.createSequentialGroup()
+                .addGap(60, 60, 60)
+                .addComponent(jScrollPane2, javax.swing.GroupLayout.DEFAULT_SIZE, 551, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(btnEliminarRetencionSede))
+        );
+
+        divisionRSede.setRightComponent(contenidoSedeTabla);
+
         javax.swing.GroupLayout contenidoRetencionSedeLayout = new javax.swing.GroupLayout(contenidoRetencionSede);
         contenidoRetencionSede.setLayout(contenidoRetencionSedeLayout);
         contenidoRetencionSedeLayout.setHorizontalGroup(
             contenidoRetencionSedeLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 1255, Short.MAX_VALUE)
+            .addGroup(contenidoRetencionSedeLayout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(divisionRSede)
+                .addContainerGap())
         );
         contenidoRetencionSedeLayout.setVerticalGroup(
             contenidoRetencionSedeLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 670, Short.MAX_VALUE)
+            .addGroup(contenidoRetencionSedeLayout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(divisionRSede)
+                .addContainerGap())
         );
 
         menuTabsDashboard.addTab("Retencion por Sede", contenidoRetencionSede);
+
+        divisionRSede1.setBorder(new javax.swing.border.SoftBevelBorder(javax.swing.border.BevelBorder.RAISED));
+        divisionRSede1.setDividerLocation(350);
+        divisionRSede1.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
+
+        contenidoSedeInputs1.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
+        contenidoSedeInputs1.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
+
+        jLabel13.setText("Porcentaje");
+
+        jLabel14.setText("Programa de estudio");
+
+        jLabel15.setText("Año");
+
+        listCarrera.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
+        listCarrera.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                listCarreraActionPerformed(evt);
+            }
+        });
+
+        jLabel16.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
+        jLabel16.setText("Ingreso de Datos Carrarera");
+
+        btnIngresarDatosReporteCarrera.setText("Ingresar Datos");
+        btnIngresarDatosReporteCarrera.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnIngresarDatosReporteCarreraActionPerformed(evt);
+            }
+        });
+
+        idretencionsede1.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
+        idretencionsede1.setText("Valor");
+
+        jLabel17.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
+        jLabel17.setText("ID");
+
+        jLabel18.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
+        jLabel18.setText("Modificación de elemento:");
+
+        btnModificarRetencionCarrera.setText("Modificar");
+        btnModificarRetencionCarrera.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnModificarRetencionCarreraActionPerformed(evt);
+            }
+        });
+
+        javax.swing.GroupLayout contenidoSedeInputs1Layout = new javax.swing.GroupLayout(contenidoSedeInputs1);
+        contenidoSedeInputs1.setLayout(contenidoSedeInputs1Layout);
+        contenidoSedeInputs1Layout.setHorizontalGroup(
+            contenidoSedeInputs1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(contenidoSedeInputs1Layout.createSequentialGroup()
+                .addGap(40, 40, 40)
+                .addGroup(contenidoSedeInputs1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(contenidoSedeInputs1Layout.createSequentialGroup()
+                        .addComponent(jLabel16)
+                        .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                    .addGroup(contenidoSedeInputs1Layout.createSequentialGroup()
+                        .addGroup(contenidoSedeInputs1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                            .addGroup(contenidoSedeInputs1Layout.createSequentialGroup()
+                                .addGroup(contenidoSedeInputs1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addComponent(jLabel13)
+                                    .addComponent(jLabel14))
+                                .addGap(18, 18, 18)
+                                .addGroup(contenidoSedeInputs1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addComponent(listCarrera, 0, 119, Short.MAX_VALUE)
+                                    .addComponent(spinerPorcentajeCarrera)))
+                            .addGroup(javax.swing.GroupLayout.Alignment.LEADING, contenidoSedeInputs1Layout.createSequentialGroup()
+                                .addComponent(jLabel15)
+                                .addGroup(contenidoSedeInputs1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addGroup(contenidoSedeInputs1Layout.createSequentialGroup()
+                                        .addGap(51, 51, 51)
+                                        .addComponent(btnIngresarDatosReporteCarrera, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                                    .addGroup(contenidoSedeInputs1Layout.createSequentialGroup()
+                                        .addGap(98, 98, 98)
+                                        .addComponent(spinerAñosCarrera)))))
+                        .addGap(71, 71, 71))))
+            .addGroup(contenidoSedeInputs1Layout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(jSeparator3)
+                .addContainerGap())
+            .addGroup(contenidoSedeInputs1Layout.createSequentialGroup()
+                .addGap(39, 39, 39)
+                .addComponent(jLabel18)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addComponent(jLabel17)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(idretencionsede1)
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, contenidoSedeInputs1Layout.createSequentialGroup()
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(btnModificarRetencionCarrera, javax.swing.GroupLayout.PREFERRED_SIZE, 163, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(72, 72, 72))
+        );
+        contenidoSedeInputs1Layout.setVerticalGroup(
+            contenidoSedeInputs1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(contenidoSedeInputs1Layout.createSequentialGroup()
+                .addGap(62, 62, 62)
+                .addComponent(jLabel16)
+                .addGap(49, 49, 49)
+                .addGroup(contenidoSedeInputs1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel14)
+                    .addComponent(listCarrera, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(18, 18, 18)
+                .addGroup(contenidoSedeInputs1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel13)
+                    .addComponent(spinerPorcentajeCarrera, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(18, 18, 18)
+                .addGroup(contenidoSedeInputs1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel15)
+                    .addComponent(spinerAñosCarrera, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(38, 38, 38)
+                .addComponent(btnIngresarDatosReporteCarrera)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addComponent(jSeparator3, javax.swing.GroupLayout.PREFERRED_SIZE, 10, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(contenidoSedeInputs1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel18)
+                    .addComponent(idretencionsede1)
+                    .addComponent(jLabel17))
+                .addGap(18, 18, 18)
+                .addComponent(btnModificarRetencionCarrera)
+                .addContainerGap(272, Short.MAX_VALUE))
+        );
+
+        divisionRSede1.setLeftComponent(contenidoSedeInputs1);
+
+        tablaRetencionCarrera.setAutoCreateRowSorter(true);
+        tablaRetencionCarrera.setModel(new javax.swing.table.DefaultTableModel(
+            new Object [][] {
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null}
+            },
+            new String [] {
+                "Title 1", "Title 2", "Title 3", "Title 4"
+            }
+        ));
+        tablaRetencionCarrera.setFillsViewportHeight(true);
+        tablaRetencionCarrera.setSelectionMode(javax.swing.ListSelectionModel.SINGLE_SELECTION);
+        tablaRetencionCarrera.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                tablaRetencionCarreraMouseClicked(evt);
+            }
+        });
+        tablaRetencionCarrera.addComponentListener(new java.awt.event.ComponentAdapter() {
+            public void componentMoved(java.awt.event.ComponentEvent evt) {
+                tablaRetencionCarreraComponentMoved(evt);
+            }
+        });
+        jScrollPane3.setViewportView(tablaRetencionCarrera);
+
+        btnEliminarRetencionCarrera.setBackground(new java.awt.Color(232, 52, 22));
+        btnEliminarRetencionCarrera.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
+        btnEliminarRetencionCarrera.setForeground(new java.awt.Color(51, 51, 51));
+        btnEliminarRetencionCarrera.setText("Eliminar");
+        btnEliminarRetencionCarrera.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnEliminarRetencionCarreraActionPerformed(evt);
+            }
+        });
+
+        javax.swing.GroupLayout contenidoSedeTabla1Layout = new javax.swing.GroupLayout(contenidoSedeTabla1);
+        contenidoSedeTabla1.setLayout(contenidoSedeTabla1Layout);
+        contenidoSedeTabla1Layout.setHorizontalGroup(
+            contenidoSedeTabla1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(contenidoSedeTabla1Layout.createSequentialGroup()
+                .addGroup(contenidoSedeTabla1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(contenidoSedeTabla1Layout.createSequentialGroup()
+                        .addGap(60, 60, 60)
+                        .addComponent(jScrollPane3, javax.swing.GroupLayout.DEFAULT_SIZE, 807, Short.MAX_VALUE))
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, contenidoSedeTabla1Layout.createSequentialGroup()
+                        .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(btnEliminarRetencionCarrera, javax.swing.GroupLayout.PREFERRED_SIZE, 140, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addContainerGap())
+        );
+        contenidoSedeTabla1Layout.setVerticalGroup(
+            contenidoSedeTabla1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(contenidoSedeTabla1Layout.createSequentialGroup()
+                .addGap(60, 60, 60)
+                .addComponent(jScrollPane3, javax.swing.GroupLayout.DEFAULT_SIZE, 551, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(btnEliminarRetencionCarrera))
+        );
+
+        divisionRSede1.setRightComponent(contenidoSedeTabla1);
 
         javax.swing.GroupLayout contenidoRetencionCarreraLayout = new javax.swing.GroupLayout(contenidoRetencionCarrera);
         contenidoRetencionCarrera.setLayout(contenidoRetencionCarreraLayout);
         contenidoRetencionCarreraLayout.setHorizontalGroup(
             contenidoRetencionCarreraLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 1255, Short.MAX_VALUE)
+            .addGroup(contenidoRetencionCarreraLayout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(divisionRSede1)
+                .addContainerGap())
         );
         contenidoRetencionCarreraLayout.setVerticalGroup(
             contenidoRetencionCarreraLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 670, Short.MAX_VALUE)
+            .addGroup(contenidoRetencionCarreraLayout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(divisionRSede1)
+                .addContainerGap())
         );
 
         menuTabsDashboard.addTab("Retencion por Carrera", contenidoRetencionCarrera);
@@ -486,6 +915,7 @@ public class dashboardRetencion extends javax.swing.JFrame {
     }//GEN-LAST:event_btnIngresarDatosReporteAreaActionPerformed
 
     private void tablaRetencionAreaMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tablaRetencionAreaMouseClicked
+        tablaRetencionArea.setEnabled(true);
         DefaultTableModel model = (DefaultTableModel) this.tablaRetencionArea.getModel();        
         int i = tablaRetencionArea.getSelectedRow();
             idretencionarea.setText(String.valueOf(tablaRetencionArea.getValueAt(i, 0)));
@@ -559,6 +989,58 @@ public class dashboardRetencion extends javax.swing.JFrame {
         }
     }//GEN-LAST:event_btnModificarRetencionAreaActionPerformed
 
+    private void tablaRetencionAreaComponentMoved(java.awt.event.ComponentEvent evt) {//GEN-FIRST:event_tablaRetencionAreaComponentMoved
+        
+    }//GEN-LAST:event_tablaRetencionAreaComponentMoved
+
+    private void listSedeActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_listSedeActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_listSedeActionPerformed
+
+    private void btnIngresarDatosReporteSedeActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnIngresarDatosReporteSedeActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_btnIngresarDatosReporteSedeActionPerformed
+
+    private void btnModificarRetencionSedeActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnModificarRetencionSedeActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_btnModificarRetencionSedeActionPerformed
+
+    private void tablaRetencionSedeMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tablaRetencionSedeMouseClicked
+        // TODO add your handling code here:
+    }//GEN-LAST:event_tablaRetencionSedeMouseClicked
+
+    private void tablaRetencionSedeComponentMoved(java.awt.event.ComponentEvent evt) {//GEN-FIRST:event_tablaRetencionSedeComponentMoved
+        // TODO add your handling code here:
+    }//GEN-LAST:event_tablaRetencionSedeComponentMoved
+
+    private void btnEliminarRetencionSedeActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnEliminarRetencionSedeActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_btnEliminarRetencionSedeActionPerformed
+
+    private void listCarreraActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_listCarreraActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_listCarreraActionPerformed
+
+    private void btnIngresarDatosReporteCarreraActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnIngresarDatosReporteCarreraActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_btnIngresarDatosReporteCarreraActionPerformed
+
+    private void btnModificarRetencionCarreraActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnModificarRetencionCarreraActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_btnModificarRetencionCarreraActionPerformed
+
+    private void tablaRetencionCarreraMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tablaRetencionCarreraMouseClicked
+        // TODO add your handling code here:
+    }//GEN-LAST:event_tablaRetencionCarreraMouseClicked
+
+    private void tablaRetencionCarreraComponentMoved(java.awt.event.ComponentEvent evt) {//GEN-FIRST:event_tablaRetencionCarreraComponentMoved
+        // TODO add your handling code here:
+    }//GEN-LAST:event_tablaRetencionCarreraComponentMoved
+
+    private void btnEliminarRetencionCarreraActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnEliminarRetencionCarreraActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_btnEliminarRetencionCarreraActionPerformed
+
     /**
      * @param args the command line arguments
      */
@@ -597,8 +1079,14 @@ public class dashboardRetencion extends javax.swing.JFrame {
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JPanel Inicio;
     private javax.swing.JButton btnEliminarRetencionArea;
+    private javax.swing.JButton btnEliminarRetencionCarrera;
+    private javax.swing.JButton btnEliminarRetencionSede;
     private javax.swing.JButton btnIngresarDatosReporteArea;
+    private javax.swing.JButton btnIngresarDatosReporteCarrera;
+    private javax.swing.JButton btnIngresarDatosReporteSede;
     private javax.swing.JButton btnModificarRetencionArea;
+    private javax.swing.JButton btnModificarRetencionCarrera;
+    private javax.swing.JButton btnModificarRetencionSede;
     private javax.swing.JPanel contenidoAreaInputs;
     private javax.swing.JPanel contenidoAreaTabla;
     private javax.swing.JPanel contenidoRetencionAnual;
@@ -607,21 +1095,53 @@ public class dashboardRetencion extends javax.swing.JFrame {
     private javax.swing.JPanel contenidoRetencionJornada;
     private javax.swing.JPanel contenidoRetencionSede;
     private javax.swing.JPanel contenidoRetencionZona;
+    private javax.swing.JPanel contenidoSedeInputs;
+    private javax.swing.JPanel contenidoSedeInputs1;
+    private javax.swing.JPanel contenidoSedeTabla;
+    private javax.swing.JPanel contenidoSedeTabla1;
     private javax.swing.JSplitPane divisionRArea;
+    private javax.swing.JSplitPane divisionRSede;
+    private javax.swing.JSplitPane divisionRSede1;
     private javax.swing.JLabel idretencionarea;
+    private javax.swing.JLabel idretencionsede;
+    private javax.swing.JLabel idretencionsede1;
     private javax.swing.JLabel jLabel1;
+    private javax.swing.JLabel jLabel10;
+    private javax.swing.JLabel jLabel11;
+    private javax.swing.JLabel jLabel12;
+    private javax.swing.JLabel jLabel13;
+    private javax.swing.JLabel jLabel14;
+    private javax.swing.JLabel jLabel15;
+    private javax.swing.JLabel jLabel16;
+    private javax.swing.JLabel jLabel17;
+    private javax.swing.JLabel jLabel18;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
     private javax.swing.JLabel jLabel5;
     private javax.swing.JLabel jLabel6;
+    private javax.swing.JLabel jLabel7;
+    private javax.swing.JLabel jLabel8;
+    private javax.swing.JLabel jLabel9;
     private javax.swing.JOptionPane jOptionPane1;
     private javax.swing.JScrollPane jScrollPane1;
+    private javax.swing.JScrollPane jScrollPane2;
+    private javax.swing.JScrollPane jScrollPane3;
     private javax.swing.JSeparator jSeparator1;
+    private javax.swing.JSeparator jSeparator2;
+    private javax.swing.JSeparator jSeparator3;
     private javax.swing.JComboBox<String> listArea;
+    private javax.swing.JComboBox<String> listCarrera;
+    private javax.swing.JComboBox<String> listSede;
     private javax.swing.JTabbedPane menuTabsDashboard;
     private javax.swing.JSpinner spinerAñosArea;
+    private javax.swing.JSpinner spinerAñosCarrera;
+    private javax.swing.JSpinner spinerAñosSede;
     private javax.swing.JSpinner spinerPorcentajeArea;
+    private javax.swing.JSpinner spinerPorcentajeCarrera;
+    private javax.swing.JSpinner spinerPorcentajeSede;
     private javax.swing.JTable tablaRetencionArea;
+    private javax.swing.JTable tablaRetencionCarrera;
+    private javax.swing.JTable tablaRetencionSede;
     // End of variables declaration//GEN-END:variables
 }
