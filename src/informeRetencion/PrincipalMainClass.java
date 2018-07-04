@@ -1,13 +1,13 @@
 
 package informeRetencion;
 
-import vistas.abrirBaseDatos;
+import vistas.Lobby;
 
 
 public class PrincipalMainClass {
 
     public static void main(String[] args) {
-        abrirBaseDatos frm = new abrirBaseDatos();
+        Lobby frm = new Lobby();
         frm.setLocationRelativeTo(null);   
         frm.setVisible(true);
     }
