@@ -24,14 +24,14 @@ public class DAORetencionArea {
         static Statement s;
         static ResultSet rs;
         DefaultTableModel modelo = new DefaultTableModel();
-        public DefaultTableModel listaRetencion() {
+        
+        
+        public DefaultTableModel listaRetencionTabla() {
         try {
             cn = Conexion.Enlace(cn);
             Statement s = cn.createStatement();
             
-            String query =  "Select ra.idretencionarea as \"ID\", a.nombre as 'AREA INACAP', r.porcentaje  as 'Retencion', ra.año as 'Año'\n" +
-                            "from area a, retencion r, retencion_area ra\n" +
-                            "where (a.idarea = ra.areaidarea and ra.retencion_idretencion = r.idretencion)";
+            String query =  "Select ra.idretencionarea as 'ID', a.nombre as 'AREA INACAP', r.porcentaje  as 'Retencion', ra.año as 'Año' from area a, retencion r, retencion_area ra where (a.idarea = ra.areaidarea and ra.retencion_idretencion = r.idretencion);";
             rs = s.executeQuery(query);
             ResultSetMetaData rsmd = rs.getMetaData();
 
@@ -57,21 +57,23 @@ public class DAORetencionArea {
         return modelo;
 
     }
+    
+
 
 
     public void AgregarProncentajeRetencionArea(float porcentaje, int idArea, int año) {
 
         try {
             cn = Conexion.Enlace(cn);
-            Statement statement = cn.createStatement();
-            String s1 = "INSERT INTO Retencion (porcentaje)\n" +
-                            "VALUES ("+porcentaje+");";
-            String s2 = "INSERT INTO Retencion_Area (retencion_IdRetencion,areaIdArea,año)\n" +
-                        "VALUES ((SELECT MAX(idRetencion) FROM Retencion),"+idArea+","+año+");";  
-            statement.addBatch(s1);
-            statement.addBatch(s2);     
-            statement.executeBatch();
-            statement.close();
+            try (Statement statement = cn.createStatement()) {
+                String s1 = "INSERT INTO Retencion (porcentaje)\n" +
+                        "VALUES ("+porcentaje+");";
+                String s2 = "INSERT INTO Retencion_Area (retencion_IdRetencion,areaIdArea,año)\n" +
+                        "VALUES ((SELECT MAX(idRetencion) FROM Retencion),"+idArea+","+año+");";
+                statement.addBatch(s1);
+                statement.addBatch(s2);
+                statement.executeBatch();
+            }
             cn.close();
             JOptionPane.showMessageDialog(null, "AGREGADO");
         } catch (HeadlessException | SQLException | NullPointerException e) {
@@ -80,6 +82,7 @@ public class DAORetencionArea {
     }
        public void EliminarRetencionArea(int idRetencionArea){
        try{
+           cn = Conexion.Enlace(cn);
        Statement s=cn.createStatement();
        String query="DELETE FROM Retencion_Area\n" +
                     "WHERE idRetencionArea ="+idRetencionArea+";";
@@ -93,24 +96,20 @@ public class DAORetencionArea {
         
         }
         //creamos metodo para modificar datos
-        public void ModificarReporte(int idRetencionArea,int areaId, int retencionIdRetencion,float porcentaje, int año){
+        public void ModificarReporte(int idRetencionArea,int areaId, int IdRetencion,float porcentaje, int año){
         try{
+            cn = Conexion.Enlace(cn);
         Statement s=cn.createStatement();
-        String query="UPDATE Retencion_Area\n" +
-                    "SET retencion_IdRetencion = "+retencionIdRetencion+",\n" +
-                    "areaIdArea = "+areaId+",\n" +
-                    "año = "+año+""+
-                    "WHERE idRetencionArea = "+idRetencionArea+";";
-        String query2 = "UPDATE Retencion\n" +
-                        "SET porcentaje = "+porcentaje+"\n" +
-                        "WHERE idRetencion = "+retencionIdRetencion+";";
+        String query="UPDATE Retencion_Area SET areaIdArea = "+areaId+", año = "+año+" WHERE idRetencionArea = "+idRetencionArea+";";
+        String query2 = "UPDATE Retencion SET porcentaje = "+porcentaje+" WHERE idRetencion = "+IdRetencion+";";
             s.addBatch(query);
             s.addBatch(query2);     
             s.executeBatch();
         s.close();
         cn.close();
-        JOptionPane.showMessageDialog(null, "MODIFICADO");
-        }catch(HeadlessException | SQLException e){JOptionPane.showMessageDialog(null, e);
+        
+        }catch(HeadlessException | SQLException e){
+            JOptionPane.showMessageDialog(null, e);
         
         }
         }

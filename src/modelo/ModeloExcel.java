@@ -87,9 +87,10 @@ public class ModeloExcel {
                 }
             }
             respuesta="Exportación exitosa.";
-        } catch (Exception e) {
+        } catch (IOException e) {
             System.err.println(e.getMessage());
         }
+        
         return respuesta;
     }
     

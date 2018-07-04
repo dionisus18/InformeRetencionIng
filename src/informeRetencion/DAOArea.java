@@ -30,7 +30,7 @@ public class DAOArea {
     private ResultSet rs;
     DefaultTableModel modelo = new DefaultTableModel();
 
-    public DefaultTableModel listaArea() {
+    public DefaultTableModel listaAreaTabla() {
         try {
             cn = Conexion.Enlace(cn);
             Statement s = cn.createStatement();
@@ -61,6 +61,8 @@ public class DAOArea {
         return modelo;
 
     }
+    
+    
 
     public LinkedList<String> consultar() {
         LinkedList<String> listaArea = new LinkedList();
@@ -76,7 +78,7 @@ public class DAOArea {
             //recorrer la tabla Area y agregar objetos a la lista Area
             while (rs.next()) //mientras haya otra fila en la tabla, avanza al siguiente
             {
-                //listaArea.add(rs.getString("idArea"));
+                listaArea.add(rs.getString("idArea"));
                 listaArea.add(rs.getString("nombre"));
             }
             // una vez finalizado, cerar la conexion a la DB
@@ -91,10 +93,10 @@ public class DAOArea {
 
         try {
             cn = Conexion.Enlace(cn);
-            Statement statement = cn.createStatement();
-            String query = "INSERT INTO Area (nombre) VALUES ('"+nombre+"')";
-            statement.executeUpdate(query);
-            statement.close();
+            try (Statement statement = cn.createStatement()) {
+                String query = "INSERT INTO Area (nombre) VALUES ('"+nombre+"')";
+                statement.executeUpdate(query);
+            }
             cn.close();
             JOptionPane.showMessageDialog(null, "AGREGADO");
         } catch (HeadlessException | SQLException | NullPointerException e) {

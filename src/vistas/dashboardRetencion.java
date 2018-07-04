@@ -5,20 +5,40 @@
  */
 package vistas;
 
+import com.alee.laf.WebLookAndFeel;
 import informeRetencion.DAOArea;
+import informeRetencion.DAOCarrera;
 import informeRetencion.DAORetencionArea;
+import informeRetencion.DAORetencionAreaB;
+import informeRetencion.DAORetencionCarrera;
+import java.awt.Frame;
+import java.awt.HeadlessException;
+import java.awt.print.PrinterException;
+import java.io.File;
+import java.text.MessageFormat;
 import java.time.Instant;
 import java.time.LocalDate;
+import java.time.LocalDateTime;
 import java.time.ZoneId;
 import java.time.ZonedDateTime;
 import java.util.ArrayList;
 import java.util.Date;
+import java.util.LinkedList;
 import java.util.List;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.swing.DefaultComboBoxModel;
+import javax.swing.JFileChooser;
 import javax.swing.JOptionPane;
+import javax.swing.JTable;
 import javax.swing.SpinnerModel;
 import javax.swing.SpinnerNumberModel;
+import javax.swing.UIManager;
 import javax.swing.table.DefaultTableModel;
+import modelo.Carrera;
+import modelo.ModeloExcel;
+import modelo.RetencionArea;
+import modelo.RetencionCarrera;
 
 /**
  *
@@ -26,68 +46,178 @@ import javax.swing.table.DefaultTableModel;
  */
 public class dashboardRetencion extends javax.swing.JFrame {
 
+    CustomDialog customDialog;
+
     public dashboardRetencion() {
+        customDialog = new CustomDialog(this, "geisel", "Ingrese Datos De Carrera", this);
+        customDialog.pack();
         initComponents();
-        DatosTablaArea();
+        //DatosTablaArea();
+        CargarDatosTablaArea();
+        DatosTablaCarrera();
         DatosListArea();
+        DatosListCarrera();
         DatosSpinerAños();
         DatosSpinerPorcentajes();
+
     }
 
-    public final void DatosTablaArea(){
+    public void LimpiarCampos() {
+        idretencionarea.setText("");
+        listArea.setSelectedIndex(0);
+        spinerAñosArea.setValue(2000);
+        spinerPorcentajeArea.setValue(50);
+        spinerPorcentajeCarrera.setValue(50);
+        spinerAñosCarrera.setValue(2000);
+        listCarrera.setSelectedItem(0);
+        idretencioncarrera.setText("");
+    }
+
+    public final void CargarDatosTablaArea() {
+        DAORetencionAreaB daoretencionarea = new DAORetencionAreaB();
+        LinkedList<RetencionArea> listaRetencionArea = new LinkedList<>();
+        listaRetencionArea = daoretencionarea.consultar();
+        DefaultTableModel modelo = new DefaultTableModel();
+        // Aqui cargamos la tabla manual en diferencia al ejemplo anterior que enviaba
+        //una tabla completa ya cargada, la ventaja de este que es mas claro y mas 
+        //personalizable
+        modelo.addColumn("ID");
+        modelo.addColumn("AREA INACAP");
+        modelo.addColumn("PORCENTAJE");
+        modelo.addColumn("AÑO");
+        for (RetencionArea aux : listaRetencionArea) {
+            Object fila[] = new Object[4];
+            fila[0] = aux.getIdRetencionArea();
+            fila[1] = aux.getNombre();
+            fila[2] = aux.getPorcentaje();
+            fila[3] = aux.getAño();
+
+            modelo.addRow(fila);
+        }
+        tablaRetencionArea.setModel(modelo);
+    }
+
+    public final void DatosTablaArea() {
         DAORetencionArea daoaretencionarea = new DAORetencionArea();
         DefaultTableModel DatosTablaArea = new DefaultTableModel();
-        DatosTablaArea = daoaretencionarea.listaRetencion();
+        DatosTablaArea = daoaretencionarea.listaRetencionTabla();
         tablaRetencionArea.setModel(DatosTablaArea);
+    }
+
+    public final void DatosTablaCarrera() {
+        DAORetencionCarrera daocCarrera = new DAORetencionCarrera();
+        LinkedList<RetencionCarrera> listaCarrera = new LinkedList<>();
+        listaCarrera = daocCarrera.consultar();
+        DefaultTableModel modelo = new DefaultTableModel();
+        // Aqui cargamos la tabla manual en diferencia al ejemplo anterior que enviaba
+        //una tabla completa ya cargada, la ventaja de este que es mas claro y mas 
+        //personalizable
+        modelo.addColumn("ID");
+        modelo.addColumn("Nombre");
+        modelo.addColumn("Codigo");
+        modelo.addColumn("IdArea");
+
+        for (RetencionCarrera aux : listaCarrera) {
+            Object fila[] = new Object[4];
+            fila[0] = aux.getIdRetencionCarrera();
+            fila[1] = aux.getNombre();
+            fila[2] = aux.getPorcentaje();
+            fila[3] = aux.getAño();
+            modelo.addRow(fila);
+        }
+        tablaRetencionCarrera.setModel(modelo);
+    }
+
+    public final void DatosSpinerPorcentajes() {
+        Float value = new Float(50.20);
+        Float step = new Float(0.1);
+        Float Min = new Float(0.1);
+        Float Max = new Float(100.0);
+        SpinnerNumberModel model = new SpinnerNumberModel(value, Min, Max, step);
+
+        spinerPorcentajeArea.setModel(model);
+        spinerPorcentajeCarrera.setModel(model);
+        spinerPorcentajeSede.setModel(model);
+
+    }
+
+    public final void DatosSpinerAños() {
+        Instant instant = Instant.now();
+        ZoneId z = ZoneId.of("America/Santiago");
+        ZonedDateTime zdt = instant.atZone(z);
+        Date date = new Date();
+        LocalDate localDate = date.toInstant().atZone(z).toLocalDate();
+        int year = localDate.getYear();
         /*
-        List<String> ls = daoarea.consultar();
-        listArea.setModel(new DefaultComboBoxModel(ls.toArray()));
- */
-    }
-    
-    public final void DatosSpinerPorcentajes(){
-    Float value = new Float(50.20);
-    Float step = new Float(0.1);
-    Float Min = new Float(0.1);
-    Float Max = new Float(100.0);
-    SpinnerNumberModel model = new SpinnerNumberModel(value, Min ,Max , step); 
-    spinerPorcentajeArea.setModel(model);
-    }
-    
-    public final void DatosSpinerAños(){
-    Instant instant = Instant.now();
-    ZoneId z = ZoneId.of( "America/Santiago" );
-    ZonedDateTime zdt = instant.atZone( z );
-    Date date = new Date();
-    LocalDate localDate = date.toInstant().atZone(z).toLocalDate();
-    int year  = localDate.getYear();
-    /*
     int month = localDate.getMonthValue();
     int day   = localDate.getDayOfMonth();
-   */
-    SpinnerModel model;                //step
+         */
+        SpinnerModel model;                //step
         model = new SpinnerNumberModel(year, //initial value
                 year - 100, //min
                 year + 100, //max
                 1);
-    spinerAñosArea.setModel(model);     
+
+        spinerAñosArea.setModel(model);
+        spinerAñosCarrera.setModel(model);
+        spinerAñosSede.setModel(model);
     }
-    
-    public final void DatosListArea(){
-        DAOArea daoarea = new DAOArea();
-        DefaultTableModel DatosTablaArea = new DefaultTableModel();
-        DatosTablaArea = daoarea.listaArea();
+
+    public final void DatosListCarrera() {
+        DAOCarrera daocarrera = new DAOCarrera();
+        LinkedList<Carrera> listaCarrera = new LinkedList<>();
+        listaCarrera = daocarrera.consultar();
         List<String> ls = new ArrayList<>();
-        for (int i = 0; i < DatosTablaArea.getRowCount(); i++) {
-          
-          ls.add((String) DatosTablaArea.getValueAt(i, 1));
-          
+        for (Carrera listaCarrera1 : listaCarrera) {
+            ls.add(listaCarrera1.getNombre());
         }
-        ls.add(0,"");
-        listArea.setModel(new DefaultComboBoxModel(ls.toArray()));
+        ls.add(0, "");
+        listCarrera.setModel(new DefaultComboBoxModel(ls.toArray()));
 
     }
-    
+
+    public final void DatosListArea() {
+        DAOArea daoarea = new DAOArea();
+        DefaultTableModel DatosTablaArea = new DefaultTableModel();
+        DatosTablaArea = daoarea.listaAreaTabla();
+        List<String> ls = new ArrayList<>();
+        for (int i = 0; i < DatosTablaArea.getRowCount(); i++) {
+
+            ls.add((String) DatosTablaArea.getValueAt(i, 1));
+        }
+        ls.add(0, "");
+        try {
+            listArea.setModel(new DefaultComboBoxModel(ls.toArray()));
+        } catch (Exception e) {
+        }
+
+    }
+
+    public static String guardarArchivo(Frame frame) {
+        String archivo = "";
+        JFileChooser fc = new JFileChooser();
+        int option = fc.showSaveDialog(frame);
+        if (option == JFileChooser.APPROVE_OPTION) {
+            String filename = fc.getSelectedFile().getName();
+            String path = fc.getSelectedFile().getParentFile().getPath();
+
+            int len = filename.length();
+            String ext = "";
+            String file = "";
+
+            if (len > 4) {
+                ext = filename.substring(len - 4, len);
+            }
+
+            if (ext.equals(".xls")) {
+                file = path + "\\" + filename;
+            } else {
+                file = path + "\\" + filename + ".xls";
+            }
+            archivo = file;
+        }
+        return archivo;
+    }
 
     /**
      * This method is called from within the constructor to initialize the form.
@@ -98,7 +228,6 @@ public class dashboardRetencion extends javax.swing.JFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
-        jOptionPane1 = new javax.swing.JOptionPane();
         menuTabsDashboard = new javax.swing.JTabbedPane();
         Inicio = new javax.swing.JPanel();
         contenidoRetencionArea = new javax.swing.JPanel();
@@ -117,10 +246,13 @@ public class dashboardRetencion extends javax.swing.JFrame {
         jLabel4 = new javax.swing.JLabel();
         jLabel6 = new javax.swing.JLabel();
         btnModificarRetencionArea = new javax.swing.JButton();
+        ingresarAreaRapida = new javax.swing.JButton();
         contenidoAreaTabla = new javax.swing.JPanel();
         jScrollPane1 = new javax.swing.JScrollPane();
         tablaRetencionArea = new javax.swing.JTable();
         btnEliminarRetencionArea = new javax.swing.JButton();
+        imprimirArea = new javax.swing.JButton();
+        exportarArea = new javax.swing.JButton();
         contenidoRetencionSede = new javax.swing.JPanel();
         divisionRSede = new javax.swing.JSplitPane();
         contenidoSedeInputs = new javax.swing.JPanel();
@@ -141,6 +273,8 @@ public class dashboardRetencion extends javax.swing.JFrame {
         jScrollPane2 = new javax.swing.JScrollPane();
         tablaRetencionSede = new javax.swing.JTable();
         btnEliminarRetencionSede = new javax.swing.JButton();
+        jButton3 = new javax.swing.JButton();
+        exportarArea2 = new javax.swing.JButton();
         contenidoRetencionCarrera = new javax.swing.JPanel();
         divisionRSede1 = new javax.swing.JSplitPane();
         contenidoSedeInputs1 = new javax.swing.JPanel();
@@ -152,38 +286,49 @@ public class dashboardRetencion extends javax.swing.JFrame {
         btnIngresarDatosReporteCarrera = new javax.swing.JButton();
         spinerAñosCarrera = new javax.swing.JSpinner();
         spinerPorcentajeCarrera = new javax.swing.JSpinner();
-        idretencionsede1 = new javax.swing.JLabel();
+        idretencioncarrera = new javax.swing.JLabel();
         jSeparator3 = new javax.swing.JSeparator();
         jLabel17 = new javax.swing.JLabel();
         jLabel18 = new javax.swing.JLabel();
         btnModificarRetencionCarrera = new javax.swing.JButton();
+        ingresarCarreraRapida = new javax.swing.JButton();
         contenidoSedeTabla1 = new javax.swing.JPanel();
         jScrollPane3 = new javax.swing.JScrollPane();
         tablaRetencionCarrera = new javax.swing.JTable();
         btnEliminarRetencionCarrera = new javax.swing.JButton();
+        imprimirCarrera = new javax.swing.JButton();
+        exportarCarrera = new javax.swing.JButton();
         contenidoRetencionZona = new javax.swing.JPanel();
         contenidoRetencionAnual = new javax.swing.JPanel();
         contenidoRetencionJornada = new javax.swing.JPanel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setTitle("Informe de retencion");
+        setLocation(new java.awt.Point(0, 0));
         setMinimumSize(new java.awt.Dimension(800, 600));
+
+        menuTabsDashboard.setBackground(new java.awt.Color(255, 255, 255));
+        menuTabsDashboard.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
 
         javax.swing.GroupLayout InicioLayout = new javax.swing.GroupLayout(Inicio);
         Inicio.setLayout(InicioLayout);
         InicioLayout.setHorizontalGroup(
             InicioLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 1255, Short.MAX_VALUE)
+            .addGap(0, 1373, Short.MAX_VALUE)
         );
         InicioLayout.setVerticalGroup(
             InicioLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 670, Short.MAX_VALUE)
+            .addGap(0, 785, Short.MAX_VALUE)
         );
 
         menuTabsDashboard.addTab("Inicio", Inicio);
 
-        divisionRArea.setBorder(new javax.swing.border.SoftBevelBorder(javax.swing.border.BevelBorder.RAISED));
+        contenidoRetencionArea.setBackground(new java.awt.Color(255, 255, 255));
+
+        divisionRArea.setBorder(null);
         divisionRArea.setDividerLocation(350);
         divisionRArea.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
+        divisionRArea.setDebugGraphicsOptions(javax.swing.DebugGraphics.NONE_OPTION);
 
         contenidoAreaInputs.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
         contenidoAreaInputs.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
@@ -195,16 +340,13 @@ public class dashboardRetencion extends javax.swing.JFrame {
         jLabel3.setText("Año");
 
         listArea.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
-        listArea.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                listAreaActionPerformed(evt);
-            }
-        });
+        listArea.setMaximumSize(new java.awt.Dimension(200, 20));
 
         jLabel5.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
         jLabel5.setText("Ingreso de Datos Area");
 
         btnIngresarDatosReporteArea.setText("Ingresar Datos");
+        btnIngresarDatosReporteArea.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         btnIngresarDatosReporteArea.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btnIngresarDatosReporteAreaActionPerformed(evt);
@@ -221,11 +363,16 @@ public class dashboardRetencion extends javax.swing.JFrame {
         jLabel6.setText("Modificación de elemento:");
 
         btnModificarRetencionArea.setText("Modificar");
+        btnModificarRetencionArea.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         btnModificarRetencionArea.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btnModificarRetencionAreaActionPerformed(evt);
             }
         });
+
+        ingresarAreaRapida.setText("...");
+        ingresarAreaRapida.setMaximumSize(new java.awt.Dimension(41, 21));
+        ingresarAreaRapida.setMinimumSize(new java.awt.Dimension(41, 21));
 
         javax.swing.GroupLayout contenidoAreaInputsLayout = new javax.swing.GroupLayout(contenidoAreaInputs);
         contenidoAreaInputs.setLayout(contenidoAreaInputsLayout);
@@ -236,7 +383,7 @@ public class dashboardRetencion extends javax.swing.JFrame {
                 .addGroup(contenidoAreaInputsLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(contenidoAreaInputsLayout.createSequentialGroup()
                         .addComponent(jLabel5)
-                        .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                        .addContainerGap(172, Short.MAX_VALUE))
                     .addGroup(contenidoAreaInputsLayout.createSequentialGroup()
                         .addGroup(contenidoAreaInputsLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                             .addGroup(contenidoAreaInputsLayout.createSequentialGroup()
@@ -245,15 +392,17 @@ public class dashboardRetencion extends javax.swing.JFrame {
                                     .addComponent(jLabel2))
                                 .addGap(18, 18, 18)
                                 .addGroup(contenidoAreaInputsLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addComponent(listArea, 0, 166, Short.MAX_VALUE)
+                                    .addComponent(listArea, 0, 177, Short.MAX_VALUE)
                                     .addComponent(spinerPorcentajeArea)))
                             .addGroup(javax.swing.GroupLayout.Alignment.LEADING, contenidoAreaInputsLayout.createSequentialGroup()
                                 .addComponent(jLabel3)
                                 .addGap(51, 51, 51)
                                 .addGroup(contenidoAreaInputsLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addComponent(btnIngresarDatosReporteArea, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                    .addComponent(btnIngresarDatosReporteArea, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 179, Short.MAX_VALUE)
                                     .addComponent(spinerAñosArea, javax.swing.GroupLayout.Alignment.TRAILING))))
-                        .addGap(71, 71, 71))))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(ingresarAreaRapida, javax.swing.GroupLayout.PREFERRED_SIZE, 20, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(35, 35, 35))))
             .addGroup(contenidoAreaInputsLayout.createSequentialGroup()
                 .addContainerGap()
                 .addComponent(jSeparator1)
@@ -266,20 +415,21 @@ public class dashboardRetencion extends javax.swing.JFrame {
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(idretencionarea)
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, contenidoAreaInputsLayout.createSequentialGroup()
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addComponent(btnModificarRetencionArea, javax.swing.GroupLayout.PREFERRED_SIZE, 163, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(72, 72, 72))
+            .addGroup(contenidoAreaInputsLayout.createSequentialGroup()
+                .addGap(109, 109, 109)
+                .addComponent(btnModificarRetencionArea, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addGap(68, 68, 68))
         );
         contenidoAreaInputsLayout.setVerticalGroup(
             contenidoAreaInputsLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(contenidoAreaInputsLayout.createSequentialGroup()
                 .addGap(62, 62, 62)
                 .addComponent(jLabel5)
-                .addGap(49, 49, 49)
+                .addGap(48, 48, 48)
                 .addGroup(contenidoAreaInputsLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel2)
-                    .addComponent(listArea, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(listArea, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(ingresarAreaRapida, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(18, 18, 18)
                 .addGroup(contenidoAreaInputsLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel1)
@@ -299,7 +449,7 @@ public class dashboardRetencion extends javax.swing.JFrame {
                     .addComponent(jLabel4))
                 .addGap(18, 18, 18)
                 .addComponent(btnModificarRetencionArea)
-                .addContainerGap(272, Short.MAX_VALUE))
+                .addContainerGap(391, Short.MAX_VALUE))
         );
 
         divisionRArea.setLeftComponent(contenidoAreaInputs);
@@ -330,13 +480,28 @@ public class dashboardRetencion extends javax.swing.JFrame {
         });
         jScrollPane1.setViewportView(tablaRetencionArea);
 
-        btnEliminarRetencionArea.setBackground(new java.awt.Color(232, 52, 22));
+        btnEliminarRetencionArea.setBackground(new java.awt.Color(255, 255, 255));
         btnEliminarRetencionArea.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
-        btnEliminarRetencionArea.setForeground(new java.awt.Color(51, 51, 51));
+        btnEliminarRetencionArea.setForeground(new java.awt.Color(255, 0, 51));
         btnEliminarRetencionArea.setText("Eliminar");
+        btnEliminarRetencionArea.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         btnEliminarRetencionArea.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btnEliminarRetencionAreaActionPerformed(evt);
+            }
+        });
+
+        imprimirArea.setText("Imprimir");
+        imprimirArea.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                imprimirAreaActionPerformed(evt);
+            }
+        });
+
+        exportarArea.setText("Exportar Excel");
+        exportarArea.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                exportarAreaActionPerformed(evt);
             }
         });
 
@@ -346,21 +511,32 @@ public class dashboardRetencion extends javax.swing.JFrame {
             contenidoAreaTablaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(contenidoAreaTablaLayout.createSequentialGroup()
                 .addGroup(contenidoAreaTablaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(contenidoAreaTablaLayout.createSequentialGroup()
-                        .addGap(60, 60, 60)
-                        .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 807, Short.MAX_VALUE))
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, contenidoAreaTablaLayout.createSequentialGroup()
                         .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addComponent(btnEliminarRetencionArea, javax.swing.GroupLayout.PREFERRED_SIZE, 140, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                        .addComponent(btnEliminarRetencionArea, javax.swing.GroupLayout.PREFERRED_SIZE, 140, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(contenidoAreaTablaLayout.createSequentialGroup()
+                        .addGap(60, 60, 60)
+                        .addGroup(contenidoAreaTablaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(contenidoAreaTablaLayout.createSequentialGroup()
+                                .addComponent(imprimirArea)
+                                .addGap(18, 18, 18)
+                                .addComponent(exportarArea)
+                                .addGap(0, 0, Short.MAX_VALUE))
+                            .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 930, Short.MAX_VALUE))))
                 .addContainerGap())
         );
         contenidoAreaTablaLayout.setVerticalGroup(
             contenidoAreaTablaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(contenidoAreaTablaLayout.createSequentialGroup()
-                .addGap(60, 60, 60)
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 551, Short.MAX_VALUE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(btnEliminarRetencionArea))
+                .addGap(26, 26, 26)
+                .addGroup(contenidoAreaTablaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(imprimirArea)
+                    .addComponent(exportarArea))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 656, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addComponent(btnEliminarRetencionArea)
+                .addContainerGap())
         );
 
         divisionRArea.setRightComponent(contenidoAreaTabla);
@@ -384,6 +560,8 @@ public class dashboardRetencion extends javax.swing.JFrame {
 
         menuTabsDashboard.addTab("Retencion por Area", contenidoRetencionArea);
 
+        contenidoRetencionSede.setBackground(new java.awt.Color(255, 255, 255));
+
         divisionRSede.setBorder(new javax.swing.border.SoftBevelBorder(javax.swing.border.BevelBorder.RAISED));
         divisionRSede.setDividerLocation(350);
         divisionRSede.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
@@ -398,6 +576,7 @@ public class dashboardRetencion extends javax.swing.JFrame {
         jLabel9.setText("Año");
 
         listSede.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
+        listSede.setMaximumSize(new java.awt.Dimension(200, 20));
         listSede.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 listSedeActionPerformed(evt);
@@ -502,7 +681,7 @@ public class dashboardRetencion extends javax.swing.JFrame {
                     .addComponent(jLabel11))
                 .addGap(18, 18, 18)
                 .addComponent(btnModificarRetencionSede)
-                .addContainerGap(272, Short.MAX_VALUE))
+                .addContainerGap(387, Short.MAX_VALUE))
         );
 
         divisionRSede.setLeftComponent(contenidoSedeInputs);
@@ -543,25 +722,49 @@ public class dashboardRetencion extends javax.swing.JFrame {
             }
         });
 
+        jButton3.setText("Imprimir");
+        jButton3.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton3ActionPerformed(evt);
+            }
+        });
+
+        exportarArea2.setText("Exportar Excel");
+        exportarArea2.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                exportarArea2ActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout contenidoSedeTablaLayout = new javax.swing.GroupLayout(contenidoSedeTabla);
         contenidoSedeTabla.setLayout(contenidoSedeTablaLayout);
         contenidoSedeTablaLayout.setHorizontalGroup(
             contenidoSedeTablaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(contenidoSedeTablaLayout.createSequentialGroup()
                 .addGroup(contenidoSedeTablaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(contenidoSedeTablaLayout.createSequentialGroup()
-                        .addGap(60, 60, 60)
-                        .addComponent(jScrollPane2, javax.swing.GroupLayout.DEFAULT_SIZE, 807, Short.MAX_VALUE))
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, contenidoSedeTablaLayout.createSequentialGroup()
                         .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addComponent(btnEliminarRetencionSede, javax.swing.GroupLayout.PREFERRED_SIZE, 140, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                        .addComponent(btnEliminarRetencionSede, javax.swing.GroupLayout.PREFERRED_SIZE, 140, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(contenidoSedeTablaLayout.createSequentialGroup()
+                        .addGap(60, 60, 60)
+                        .addGroup(contenidoSedeTablaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(contenidoSedeTablaLayout.createSequentialGroup()
+                                .addComponent(jButton3)
+                                .addGap(18, 18, 18)
+                                .addComponent(exportarArea2)
+                                .addGap(0, 0, Short.MAX_VALUE))
+                            .addComponent(jScrollPane2, javax.swing.GroupLayout.DEFAULT_SIZE, 925, Short.MAX_VALUE))))
                 .addContainerGap())
         );
         contenidoSedeTablaLayout.setVerticalGroup(
             contenidoSedeTablaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(contenidoSedeTablaLayout.createSequentialGroup()
-                .addGap(60, 60, 60)
-                .addComponent(jScrollPane2, javax.swing.GroupLayout.DEFAULT_SIZE, 551, Short.MAX_VALUE)
+                .addGap(26, 26, 26)
+                .addGroup(contenidoSedeTablaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jButton3)
+                    .addComponent(exportarArea2))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addComponent(jScrollPane2, javax.swing.GroupLayout.DEFAULT_SIZE, 666, Short.MAX_VALUE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(btnEliminarRetencionSede))
         );
@@ -587,20 +790,27 @@ public class dashboardRetencion extends javax.swing.JFrame {
 
         menuTabsDashboard.addTab("Retencion por Sede", contenidoRetencionSede);
 
-        divisionRSede1.setBorder(new javax.swing.border.SoftBevelBorder(javax.swing.border.BevelBorder.RAISED));
+        contenidoRetencionCarrera.setBackground(new java.awt.Color(255, 255, 255));
+
+        divisionRSede1.setBorder(null);
         divisionRSede1.setDividerLocation(350);
         divisionRSede1.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
 
         contenidoSedeInputs1.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
         contenidoSedeInputs1.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
 
+        jLabel13.setLabelFor(spinerPorcentajeCarrera);
         jLabel13.setText("Porcentaje");
+        jLabel13.setToolTipText("");
 
-        jLabel14.setText("Programa de estudio");
+        jLabel14.setLabelFor(listCarrera);
+        jLabel14.setText("Carrera");
 
         jLabel15.setText("Año");
 
         listCarrera.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
+        listCarrera.setToolTipText("Listado de programas de estudio");
+        listCarrera.setMaximumSize(new java.awt.Dimension(200, 20));
         listCarrera.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 listCarreraActionPerformed(evt);
@@ -608,17 +818,24 @@ public class dashboardRetencion extends javax.swing.JFrame {
         });
 
         jLabel16.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
-        jLabel16.setText("Ingreso de Datos Carrarera");
+        jLabel16.setText("Ingreso de datos de retencion PE");
+        jLabel16.setToolTipText("Programa de estudio");
 
         btnIngresarDatosReporteCarrera.setText("Ingresar Datos");
+        btnIngresarDatosReporteCarrera.setToolTipText("Registro de datos de retencion en base de datos");
+        btnIngresarDatosReporteCarrera.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
         btnIngresarDatosReporteCarrera.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btnIngresarDatosReporteCarreraActionPerformed(evt);
             }
         });
 
-        idretencionsede1.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
-        idretencionsede1.setText("Valor");
+        spinerAñosCarrera.setToolTipText("Año actual, Min -100 años, Max +100 años");
+
+        spinerPorcentajeCarrera.setToolTipText("Valor Min 0.1 Max 100, Paso cada 0.1");
+
+        idretencioncarrera.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
+        idretencioncarrera.setText("Valor");
 
         jLabel17.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
         jLabel17.setText("ID");
@@ -633,62 +850,73 @@ public class dashboardRetencion extends javax.swing.JFrame {
             }
         });
 
+        ingresarCarreraRapida.setFont(new java.awt.Font("Tahoma", 0, 10)); // NOI18N
+        ingresarCarreraRapida.setText("...");
+        ingresarCarreraRapida.setToolTipText("Administracion de Programas de Estudio");
+        ingresarCarreraRapida.setFocusPainted(false);
+        ingresarCarreraRapida.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                ingresarCarreraRapidaActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout contenidoSedeInputs1Layout = new javax.swing.GroupLayout(contenidoSedeInputs1);
         contenidoSedeInputs1.setLayout(contenidoSedeInputs1Layout);
         contenidoSedeInputs1Layout.setHorizontalGroup(
             contenidoSedeInputs1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(contenidoSedeInputs1Layout.createSequentialGroup()
-                .addGap(40, 40, 40)
                 .addGroup(contenidoSedeInputs1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(contenidoSedeInputs1Layout.createSequentialGroup()
-                        .addComponent(jLabel16)
-                        .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                    .addGroup(contenidoSedeInputs1Layout.createSequentialGroup()
-                        .addGroup(contenidoSedeInputs1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                        .addGap(40, 40, 40)
+                        .addGroup(contenidoSedeInputs1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addGroup(contenidoSedeInputs1Layout.createSequentialGroup()
-                                .addGroup(contenidoSedeInputs1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addComponent(jLabel13)
-                                    .addComponent(jLabel14))
-                                .addGap(18, 18, 18)
-                                .addGroup(contenidoSedeInputs1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addComponent(listCarrera, 0, 119, Short.MAX_VALUE)
-                                    .addComponent(spinerPorcentajeCarrera)))
-                            .addGroup(javax.swing.GroupLayout.Alignment.LEADING, contenidoSedeInputs1Layout.createSequentialGroup()
-                                .addComponent(jLabel15)
-                                .addGroup(contenidoSedeInputs1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                .addComponent(jLabel16)
+                                .addGap(0, 0, Short.MAX_VALUE))
+                            .addGroup(contenidoSedeInputs1Layout.createSequentialGroup()
+                                .addGroup(contenidoSedeInputs1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                                     .addGroup(contenidoSedeInputs1Layout.createSequentialGroup()
+                                        .addGroup(contenidoSedeInputs1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                            .addComponent(jLabel13)
+                                            .addComponent(jLabel14))
+                                        .addGap(18, 18, 18)
+                                        .addGroup(contenidoSedeInputs1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                            .addComponent(listCarrera, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                            .addComponent(spinerPorcentajeCarrera)))
+                                    .addGroup(javax.swing.GroupLayout.Alignment.LEADING, contenidoSedeInputs1Layout.createSequentialGroup()
+                                        .addComponent(jLabel15)
                                         .addGap(51, 51, 51)
-                                        .addComponent(btnIngresarDatosReporteCarrera, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                                    .addGroup(contenidoSedeInputs1Layout.createSequentialGroup()
-                                        .addGap(98, 98, 98)
-                                        .addComponent(spinerAñosCarrera)))))
-                        .addGap(71, 71, 71))))
-            .addGroup(contenidoSedeInputs1Layout.createSequentialGroup()
-                .addContainerGap()
-                .addComponent(jSeparator3)
+                                        .addGroup(contenidoSedeInputs1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                            .addComponent(btnIngresarDatosReporteCarrera, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                            .addComponent(spinerAñosCarrera))))
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(ingresarCarreraRapida, javax.swing.GroupLayout.PREFERRED_SIZE, 20, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                    .addGroup(contenidoSedeInputs1Layout.createSequentialGroup()
+                        .addContainerGap()
+                        .addComponent(jSeparator3))
+                    .addGroup(contenidoSedeInputs1Layout.createSequentialGroup()
+                        .addGap(40, 40, 40)
+                        .addComponent(jLabel18)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addComponent(jLabel17)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(idretencioncarrera)
+                        .addGap(0, 80, Short.MAX_VALUE)))
                 .addContainerGap())
             .addGroup(contenidoSedeInputs1Layout.createSequentialGroup()
-                .addGap(39, 39, 39)
-                .addComponent(jLabel18)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(jLabel17)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(idretencionsede1)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, contenidoSedeInputs1Layout.createSequentialGroup()
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addComponent(btnModificarRetencionCarrera, javax.swing.GroupLayout.PREFERRED_SIZE, 163, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(72, 72, 72))
+                .addGap(111, 111, 111)
+                .addComponent(btnModificarRetencionCarrera, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addGap(34, 34, 34))
         );
         contenidoSedeInputs1Layout.setVerticalGroup(
             contenidoSedeInputs1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(contenidoSedeInputs1Layout.createSequentialGroup()
                 .addGap(62, 62, 62)
                 .addComponent(jLabel16)
-                .addGap(49, 49, 49)
+                .addGap(48, 48, 48)
                 .addGroup(contenidoSedeInputs1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel14)
-                    .addComponent(listCarrera, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(listCarrera, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(ingresarCarreraRapida, javax.swing.GroupLayout.PREFERRED_SIZE, 20, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(18, 18, 18)
                 .addGroup(contenidoSedeInputs1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel13)
@@ -704,11 +932,11 @@ public class dashboardRetencion extends javax.swing.JFrame {
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(contenidoSedeInputs1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel18)
-                    .addComponent(idretencionsede1)
+                    .addComponent(idretencioncarrera)
                     .addComponent(jLabel17))
-                .addGap(18, 18, 18)
+                .addGap(41, 41, 41)
                 .addComponent(btnModificarRetencionCarrera)
-                .addContainerGap(272, Short.MAX_VALUE))
+                .addContainerGap(371, Short.MAX_VALUE))
         );
 
         divisionRSede1.setLeftComponent(contenidoSedeInputs1);
@@ -739,13 +967,27 @@ public class dashboardRetencion extends javax.swing.JFrame {
         });
         jScrollPane3.setViewportView(tablaRetencionCarrera);
 
-        btnEliminarRetencionCarrera.setBackground(new java.awt.Color(232, 52, 22));
+        btnEliminarRetencionCarrera.setBackground(new java.awt.Color(255, 255, 255));
         btnEliminarRetencionCarrera.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
-        btnEliminarRetencionCarrera.setForeground(new java.awt.Color(51, 51, 51));
+        btnEliminarRetencionCarrera.setForeground(new java.awt.Color(255, 0, 0));
         btnEliminarRetencionCarrera.setText("Eliminar");
         btnEliminarRetencionCarrera.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btnEliminarRetencionCarreraActionPerformed(evt);
+            }
+        });
+
+        imprimirCarrera.setText("Imprimir");
+        imprimirCarrera.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                imprimirCarreraActionPerformed(evt);
+            }
+        });
+
+        exportarCarrera.setText("Exportar Excel");
+        exportarCarrera.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                exportarCarreraActionPerformed(evt);
             }
         });
 
@@ -755,21 +997,32 @@ public class dashboardRetencion extends javax.swing.JFrame {
             contenidoSedeTabla1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(contenidoSedeTabla1Layout.createSequentialGroup()
                 .addGroup(contenidoSedeTabla1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(contenidoSedeTabla1Layout.createSequentialGroup()
-                        .addGap(60, 60, 60)
-                        .addComponent(jScrollPane3, javax.swing.GroupLayout.DEFAULT_SIZE, 807, Short.MAX_VALUE))
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, contenidoSedeTabla1Layout.createSequentialGroup()
                         .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addComponent(btnEliminarRetencionCarrera, javax.swing.GroupLayout.PREFERRED_SIZE, 140, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                        .addComponent(btnEliminarRetencionCarrera, javax.swing.GroupLayout.PREFERRED_SIZE, 140, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(contenidoSedeTabla1Layout.createSequentialGroup()
+                        .addGap(60, 60, 60)
+                        .addGroup(contenidoSedeTabla1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(contenidoSedeTabla1Layout.createSequentialGroup()
+                                .addComponent(imprimirCarrera)
+                                .addGap(18, 18, 18)
+                                .addComponent(exportarCarrera)
+                                .addGap(0, 0, Short.MAX_VALUE))
+                            .addComponent(jScrollPane3, javax.swing.GroupLayout.DEFAULT_SIZE, 931, Short.MAX_VALUE))))
                 .addContainerGap())
         );
         contenidoSedeTabla1Layout.setVerticalGroup(
             contenidoSedeTabla1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(contenidoSedeTabla1Layout.createSequentialGroup()
-                .addGap(60, 60, 60)
-                .addComponent(jScrollPane3, javax.swing.GroupLayout.DEFAULT_SIZE, 551, Short.MAX_VALUE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(btnEliminarRetencionCarrera))
+                .addGap(26, 26, 26)
+                .addGroup(contenidoSedeTabla1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(imprimirCarrera)
+                    .addComponent(exportarCarrera))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addComponent(jScrollPane3, javax.swing.GroupLayout.DEFAULT_SIZE, 656, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addComponent(btnEliminarRetencionCarrera)
+                .addContainerGap())
         );
 
         divisionRSede1.setRightComponent(contenidoSedeTabla1);
@@ -791,43 +1044,49 @@ public class dashboardRetencion extends javax.swing.JFrame {
                 .addContainerGap())
         );
 
-        menuTabsDashboard.addTab("Retencion por Carrera", contenidoRetencionCarrera);
+        menuTabsDashboard.addTab("Retencion por Carrera(PE)", contenidoRetencionCarrera);
+
+        contenidoRetencionZona.setBackground(new java.awt.Color(255, 255, 255));
 
         javax.swing.GroupLayout contenidoRetencionZonaLayout = new javax.swing.GroupLayout(contenidoRetencionZona);
         contenidoRetencionZona.setLayout(contenidoRetencionZonaLayout);
         contenidoRetencionZonaLayout.setHorizontalGroup(
             contenidoRetencionZonaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 1255, Short.MAX_VALUE)
+            .addGap(0, 1373, Short.MAX_VALUE)
         );
         contenidoRetencionZonaLayout.setVerticalGroup(
             contenidoRetencionZonaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 670, Short.MAX_VALUE)
+            .addGap(0, 785, Short.MAX_VALUE)
         );
 
         menuTabsDashboard.addTab("Retencion por Zona", contenidoRetencionZona);
+
+        contenidoRetencionAnual.setBackground(new java.awt.Color(255, 255, 255));
 
         javax.swing.GroupLayout contenidoRetencionAnualLayout = new javax.swing.GroupLayout(contenidoRetencionAnual);
         contenidoRetencionAnual.setLayout(contenidoRetencionAnualLayout);
         contenidoRetencionAnualLayout.setHorizontalGroup(
             contenidoRetencionAnualLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 1255, Short.MAX_VALUE)
+            .addGap(0, 1373, Short.MAX_VALUE)
         );
         contenidoRetencionAnualLayout.setVerticalGroup(
             contenidoRetencionAnualLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 670, Short.MAX_VALUE)
+            .addGap(0, 785, Short.MAX_VALUE)
         );
 
         menuTabsDashboard.addTab("Retencion Anual", contenidoRetencionAnual);
+
+        contenidoRetencionJornada.setBackground(new java.awt.Color(255, 255, 255));
 
         javax.swing.GroupLayout contenidoRetencionJornadaLayout = new javax.swing.GroupLayout(contenidoRetencionJornada);
         contenidoRetencionJornada.setLayout(contenidoRetencionJornadaLayout);
         contenidoRetencionJornadaLayout.setHorizontalGroup(
             contenidoRetencionJornadaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 1255, Short.MAX_VALUE)
+            .addGap(0, 1373, Short.MAX_VALUE)
         );
         contenidoRetencionJornadaLayout.setVerticalGroup(
             contenidoRetencionJornadaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 670, Short.MAX_VALUE)
+            .addGap(0, 785, Short.MAX_VALUE)
         );
 
         menuTabsDashboard.addTab("Retencion por Jornada", contenidoRetencionJornada);
@@ -852,145 +1111,166 @@ public class dashboardRetencion extends javax.swing.JFrame {
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-    private void listAreaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_listAreaActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_listAreaActionPerformed
-
     private void btnIngresarDatosReporteAreaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnIngresarDatosReporteAreaActionPerformed
         DAOArea daoarea = new DAOArea();
         DAORetencionArea daoaretencionarea = new DAORetencionArea();
         DefaultTableModel DatosTablaArea = new DefaultTableModel();
-        DatosTablaArea = daoarea.listaArea();
+        DatosTablaArea = daoarea.listaAreaTabla();
         int idArea = 0;
         float porcentaje = 0;
         int año = 0;
         boolean validador = false;
         if (spinerAñosArea.getValue().toString().isEmpty() || spinerPorcentajeArea.getValue().toString().isEmpty() || listArea.getSelectedItem().toString().equals("")) {
             JOptionPane.showMessageDialog(this, "Faltan campos por completar", "Informacion", 1);
-        }else{
-            /*
-            try{
-                porcentaje = Integer.parseInt(spinerPorcentajeArea.ge);
-            }catch(NumberFormatException e){
-                System.out.println(e.getLocalizedMessage());
-                JOptionPane.showMessageDialog(this, "Ingrese solo datos numericos en porcentaje", "Informacion", 1);
-            }
-            */
-            //if (rootPaneCheckingEnabled) {
-                /*
-                amountFormat = NumberFormat.getNumberInstance();
+        } else {
 
-                amountField = new JFormattedTextField(amountFormat);
-                amountField.setValue(new Double(amount));
-                amountField.setColumns(10);
-                amountField.addPropertyChangeListener("value", this);
-                */
-           // }
-            
-          for (int i = 0; i < DatosTablaArea.getRowCount(); i++) {
-               if (DatosTablaArea.getValueAt(i, 1).toString().equals(listArea.getSelectedItem().toString())){
-                   idArea = (int) DatosTablaArea.getValueAt(i, 0);
-                   validador = true;
-                   break;
-               }else{
-                 validador = false;
-               } 
+            for (int i = 0; i < DatosTablaArea.getRowCount(); i++) {
+                if (DatosTablaArea.getValueAt(i, 1).toString().equals(listArea.getSelectedItem().toString())) {
+                    idArea = (int) DatosTablaArea.getValueAt(i, 0);
+                    validador = true;
+                    break;
+                } else {
+                    validador = false;
+                }
             }
             if (validador) {
                 try {
-                     spinerAñosArea.commitEdit();
-                     spinerPorcentajeArea.commitEdit();
-                     año = (int)spinerAñosArea.getValue();
-                     porcentaje = (float)spinerPorcentajeArea.getValue();
-                 } catch ( java.text.ParseException e ){};
+                    spinerAñosArea.commitEdit();
+                    spinerPorcentajeArea.commitEdit();
+                    año = (int) spinerAñosArea.getValue();
+                    porcentaje = (float) spinerPorcentajeArea.getValue();
+                } catch (java.text.ParseException e) {
+                };
 
-                   daoaretencionarea.AgregarProncentajeRetencionArea(porcentaje, idArea, año);
-                   //daoarea.AgregarArea(txtPorcentajeArea.getText().trim().toUpperCase());
-                   DatosTablaArea();
+                daoaretencionarea.AgregarProncentajeRetencionArea(porcentaje, idArea, año);
+                //daoarea.AgregarArea(txtPorcentajeArea.getText().trim().toUpperCase());
+                //DatosTablaArea();
+                LimpiarCampos();
+                DatosTablaCarrera();
             }
         }
-        
-        
-        
+
+
     }//GEN-LAST:event_btnIngresarDatosReporteAreaActionPerformed
 
     private void tablaRetencionAreaMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tablaRetencionAreaMouseClicked
         tablaRetencionArea.setEnabled(true);
-        DefaultTableModel model = (DefaultTableModel) this.tablaRetencionArea.getModel();        
+        DefaultTableModel model = (DefaultTableModel) this.tablaRetencionArea.getModel();
         int i = tablaRetencionArea.getSelectedRow();
-            idretencionarea.setText(String.valueOf(tablaRetencionArea.getValueAt(i, 0)));
-            listArea.setSelectedItem(String.valueOf(tablaRetencionArea.getValueAt(i, 1)));
-            spinerAñosArea.setValue((int)(tablaRetencionArea.getValueAt(i, 3)));
-            spinerPorcentajeArea.setValue((double)(tablaRetencionArea.getValueAt(i, 2)));
-        
+        idretencionarea.setText(String.valueOf(tablaRetencionArea.getValueAt(i, 0)));
+        listArea.setSelectedItem(String.valueOf(tablaRetencionArea.getValueAt(i, 1)));
+        spinerAñosArea.setValue((int) (tablaRetencionArea.getValueAt(i, 3)));
+        spinerPorcentajeArea.setValue((float) (tablaRetencionArea.getValueAt(i, 2)));
+
     }//GEN-LAST:event_tablaRetencionAreaMouseClicked
 
     private void btnEliminarRetencionAreaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnEliminarRetencionAreaActionPerformed
         if (idretencionarea.getText().trim().isEmpty()) {
             JOptionPane.showMessageDialog(this, "No hay ningun elemento selecionado", "Informacion", 1);
-        }else{
-        DAORetencionArea daoretencionarea = new DAORetencionArea();
-        try {
-            daoretencionarea.EliminarRetencionArea(Integer.parseInt(idretencionarea.getText()));
-            DatosTablaArea();
-        } catch (NumberFormatException e) {
-            
-        }
-        
-        idretencionarea.setText("");
-        listArea.setSelectedIndex(0);
-        spinerAñosArea.setValue(2000);
-        spinerPorcentajeArea.setValue(50);
-        }
-        
-        
+        } else {
+            DAORetencionArea daoretencionarea = new DAORetencionArea();
+            try {
+                daoretencionarea.EliminarRetencionArea(Integer.parseInt(idretencionarea.getText()));
+                //DatosTablaArea();
+                CargarDatosTablaArea();
+            } catch (NumberFormatException e) {
+                System.out.println(e);
+            }
 
-        
+            LimpiarCampos();
+        }
+
+
     }//GEN-LAST:event_btnEliminarRetencionAreaActionPerformed
 
     private void btnModificarRetencionAreaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnModificarRetencionAreaActionPerformed
         if (idretencionarea.getText().trim().isEmpty()) {
             JOptionPane.showMessageDialog(this, "No hay ningun elemento selecionado", "Informacion", 1);
-        }else{
-            
-        DAOArea daoarea = new DAOArea();
-        DAORetencionArea daoaretencionarea = new DAORetencionArea();
-        DefaultTableModel DatosTablaArea2 = new DefaultTableModel();
-        DatosTablaArea2 = daoarea.listaArea();
-        int idArea = 0;
-        float porcentaje = 0;
-        int año = 0;
-        int idRetencion = Integer.parseInt(idretencionarea.getText());
-        int i2 = tablaRetencionArea.getSelectedRow();
-        int idRetencionArea = Integer.parseInt(idretencionarea.getText());
-        boolean validador = false;
-        if (spinerAñosArea.getValue().toString().isEmpty() || spinerPorcentajeArea.getValue().toString().isEmpty() || listArea.getSelectedItem().toString().equals("")) {
-            JOptionPane.showMessageDialog(this, "Faltan campos por completar", "Informacion", 1);
-        }else{
-          for (int i = 0; i < DatosTablaArea2.getRowCount(); i++) {
-               if (DatosTablaArea2.getValueAt(i, 1).toString().equals(listArea.getSelectedItem().toString())){
-                   idArea = (int) DatosTablaArea2.getValueAt(i, 0);
-                   validador = true;
-                   break;
-               }else{
-                 validador = false;
-               } 
+        } else {
+            //DEFINICION DE VARIABLES LOCALES PARA TRABAJAR
+            DAORetencionAreaB daoretencionarea = new DAORetencionAreaB();
+            LinkedList<RetencionArea> listaRetencionArea = new LinkedList<>();
+            listaRetencionArea = daoretencionarea.consultar();
+            int idRetencion = 0;
+            int idRetencionArea = 0;
+            int idArea = 0;
+            float porcentaje = 0;
+            int año = 0;
+            //VALIDADOR PARA COMPROBAR ACCIONES
+            boolean validador = false;
+
+            //SE INTENTA OBTENER LA ID PRINCIPAL(LA DE LA TABLA) QUE SEA DE TIPO INT; DE NO SER EL CASO MUESTRA MENSAJE DE ERROR
+            try {
+                idRetencionArea = Integer.parseInt(idretencionarea.getText().trim());
+            } catch (NumberFormatException e) {
+                System.out.println(e);
+                validador = true;
             }
+            //SI ES VALIDADOR ES VERDADERO; EN ESTE CASO MUESTRA MENSAJE DE ERROR
             if (validador) {
-                try {
-                     spinerAñosArea.commitEdit();
-                     spinerPorcentajeArea.commitEdit();
-                     año = (int)spinerAñosArea.getValue();
-                     porcentaje = (float)spinerPorcentajeArea.getValue();
-                 } catch ( java.text.ParseException e ){};
-                 daoaretencionarea.ModificarReporte(idRetencion, idArea, idRetencionArea, porcentaje, año);
-        }
-        }
+                JOptionPane.showMessageDialog(this, "Error No es un int", "Informacion", 1);
+                LimpiarCampos();
+                CargarDatosTablaArea();
+            } else {
+                //SI LA PRIMERA VALIDACION ES CORRECTA PROCEDEMOS A CONSEGUIR LA ID SEGUNDARIA; EN ESTE CASO ID RETENCION PARA MODIFICAR 
+                //EL PROCENTAJE DE RETENCION
+                for (RetencionArea aux : listaRetencionArea) {
+                    if (idRetencionArea == aux.getIdRetencionArea()) {
+                        //SI EL ID PRINCIPAL ES IGUAL AL ID DEL LISTADO; ENTONCES SE ASIGNA
+                        //LA ID SEGUNDARIA
+                        idRetencion = aux.getIdRetencion();
+                    }
+                }
+                //SI LA ID NO EXISTE SE MUESTRA ERROR
+                if (idRetencion == 0) {
+                    JOptionPane.showMessageDialog(this, "error", "Informacion", 1);
+                    LimpiarCampos();
+                    CargarDatosTablaArea();
+                } else {
+                    // AHORA SE PROCEDE A OBTENER LOS DATOS DE LOS INPUTS
+                    DAOArea daoarea = new DAOArea();
+                    DAORetencionArea daoaretencionarea = new DAORetencionArea();
+                    DefaultTableModel DatosTablaArea2 = new DefaultTableModel();
+                    DatosTablaArea2 = daoarea.listaAreaTabla();
+                    if (spinerAñosArea.getValue().toString().isEmpty() || spinerPorcentajeArea.getValue().toString().isEmpty() || listArea.getSelectedItem().toString().equals("")) {
+                        JOptionPane.showMessageDialog(this, "Faltan campos por completar", "Informacion", 1);
+                    } else {
+                        for (int i = 0; i < DatosTablaArea2.getRowCount(); i++) {
+                            if (DatosTablaArea2.getValueAt(i, 1).toString().equals(listArea.getSelectedItem().toString())) {
+                                idArea = (int) DatosTablaArea2.getValueAt(i, 0);
+                                validador = true;
+                                break;
+                            } else {
+                                validador = false;
+                            }
+                        }
+                        if (validador) {
+                            try {
+                                spinerAñosArea.commitEdit();
+                                spinerPorcentajeArea.commitEdit();
+                                año = (int) spinerAñosArea.getValue();
+                                porcentaje = (float) spinerPorcentajeArea.getValue();
+                            } catch (java.text.ParseException e) {
+                            }
+                            try {
+                                daoaretencionarea.ModificarReporte(idRetencionArea, idArea, idRetencion, porcentaje, año);
+                            } catch (Exception e) {
+                                JOptionPane.showMessageDialog(this, "Error", "Informacion", 0);
+                            }
+                            JOptionPane.showMessageDialog(this, "Modificado", "Informacion", 1);
+                            LimpiarCampos();
+                            CargarDatosTablaArea();
+
+                        }
+
+                    }
+                }
+            }
         }
     }//GEN-LAST:event_btnModificarRetencionAreaActionPerformed
 
     private void tablaRetencionAreaComponentMoved(java.awt.event.ComponentEvent evt) {//GEN-FIRST:event_tablaRetencionAreaComponentMoved
-        
+
     }//GEN-LAST:event_tablaRetencionAreaComponentMoved
 
     private void listSedeActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_listSedeActionPerformed
@@ -1022,15 +1302,149 @@ public class dashboardRetencion extends javax.swing.JFrame {
     }//GEN-LAST:event_listCarreraActionPerformed
 
     private void btnIngresarDatosReporteCarreraActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnIngresarDatosReporteCarreraActionPerformed
-        // TODO add your handling code here:
+        DAOCarrera daocarrera = new DAOCarrera();
+        DAORetencionCarrera daoretencioncarrera = new DAORetencionCarrera();
+        LinkedList<Carrera> DatosTablaCarrera = new LinkedList<>();
+        DatosTablaCarrera = daocarrera.consultar();
+        int idCarrera = 0;
+        float porcentaje = 0;
+        int año = 0;
+        boolean validador = false;
+        if (spinerAñosCarrera.getValue().toString().isEmpty() || spinerPorcentajeCarrera.getValue().toString().isEmpty() || listCarrera.getSelectedItem().toString().equals("")) {
+            JOptionPane.showMessageDialog(this, "Faltan campos por completar", "Informacion", 1);
+        } else {
+
+            for (Carrera miCarrera : DatosTablaCarrera) {
+                if (miCarrera.getNombre().equals(listCarrera.getSelectedItem().toString().trim())) {
+                    idCarrera = miCarrera.getIdCarrera();
+                    validador = true;
+                    break;
+                } else {
+                    validador = false;
+                }
+            }
+            if (validador) {
+                try {
+                    spinerAñosCarrera.commitEdit();
+                    spinerPorcentajeCarrera.commitEdit();
+                    año = (int) spinerAñosCarrera.getValue();
+                    porcentaje = (float) spinerPorcentajeCarrera.getValue();
+                } catch (java.text.ParseException e) {
+                    System.out.println(e.getMessage());
+                }
+
+                daoretencioncarrera.AgregarProncentajeRetencionCarrera(porcentaje, idCarrera, año);
+                //daoarea.AgregarArea(txtPorcentajeArea.getText().trim().toUpperCase());
+                //DatosTablaArea();
+                LimpiarCampos();
+                DatosTablaCarrera();
+            }
+        }
     }//GEN-LAST:event_btnIngresarDatosReporteCarreraActionPerformed
 
     private void btnModificarRetencionCarreraActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnModificarRetencionCarreraActionPerformed
-        // TODO add your handling code here:
+        if (idretencionarea.getText().trim().isEmpty()) {
+            JOptionPane.showMessageDialog(this, "No hay ningun elemento selecionado", "Informacion", 1);
+        } else {
+            //DEFINICION DE VARIABLES LOCALES PARA TRABAJAR
+            DAORetencionCarrera daoretencionacarrera = new DAORetencionCarrera();
+            LinkedList<RetencionCarrera> listaRetencionCarrera = new LinkedList<>();
+            listaRetencionCarrera = daoretencionacarrera.consultar();
+            int idRetencion = 0;
+            int idRetencionCarrera = 0;
+            int idCarrera = 0;
+            float porcentaje = 0;
+            int año = 0;
+            //VALIDADOR PARA COMPROBAR ACCIONES
+            boolean validador = false;
+
+            //SE INTENTA OBTENER LA ID PRINCIPAL(LA DE LA TABLA) QUE SEA DE TIPO INT; DE NO SER EL CASO MUESTRA MENSAJE DE ERROR
+            try {
+                idRetencionCarrera = Integer.parseInt(idretencioncarrera.getText().trim());
+            } catch (NumberFormatException e) {
+                System.out.println(e);
+                validador = true;
+            }
+            //SI ES VALIDADOR ES VERDADERO; EN ESTE CASO MUESTRA MENSAJE DE ERROR
+            if (validador) {
+                JOptionPane.showMessageDialog(this, "Error No es un int", "Informacion", 1);
+                LimpiarCampos();
+                DatosTablaCarrera();
+            } else {
+                //SI LA PRIMERA VALIDACION ES CORRECTA PROCEDEMOS A CONSEGUIR LA ID SEGUNDARIA; EN ESTE CASO ID RETENCION PARA MODIFICAR 
+                //EL PROCENTAJE DE RETENCION
+                for (RetencionCarrera aux : listaRetencionCarrera) {
+                    if (idRetencionCarrera == aux.getIdRetencionCarrera()) {
+                        //SI EL ID PRINCIPAL ES IGUAL AL ID DEL LISTADO; ENTONCES SE ASIGNA
+                        //LA ID SEGUNDARIA
+                        idRetencion = aux.getIdRetencion();
+                    }
+                }
+                //SI LA ID NO EXISTE SE MUESTRA ERROR
+                if (idRetencion == 0) {
+                    JOptionPane.showMessageDialog(this, "error", "Informacion", 1);
+                    LimpiarCampos();
+                    DatosTablaCarrera();
+                } else {
+                    // AHORA SE PROCEDE A OBTENER LOS DATOS DE LOS INPUTS
+                    DAOCarrera daocarrera = new DAOCarrera();
+                    DAORetencionCarrera daoaretencioncarrera = new DAORetencionCarrera();
+                    LinkedList<Carrera> DatosTablaCarrera = new LinkedList<>();
+                    DatosTablaCarrera = daocarrera.consultar();
+                    if (spinerAñosCarrera.getValue().toString().isEmpty() || spinerPorcentajeCarrera.getValue().toString().isEmpty() || listCarrera.getSelectedItem().toString().equals("")) {
+                        JOptionPane.showMessageDialog(this, "Faltan campos por completar", "Informacion", 1);
+                    } else {
+
+                        for (Carrera miCarrera : DatosTablaCarrera) {
+                            if (miCarrera.getNombre().equals(listCarrera.getSelectedItem().toString().trim())) {
+                                idCarrera = miCarrera.getIdCarrera();
+                                validador = true;
+                                break;
+                            } else {
+                                validador = false;
+                            }
+                        }
+                        if (validador) {
+                            boolean validador2 = false;
+                            if (validador) {
+                                try {
+                                    spinerAñosCarrera.commitEdit();
+                                    spinerPorcentajeCarrera.commitEdit();
+                                    año = (int) spinerAñosCarrera.getValue();
+                                    porcentaje = (float) spinerPorcentajeCarrera.getValue();
+                                } catch (java.text.ParseException e) {
+                                    System.out.println(e.getMessage());
+                                    validador = true;
+                                }
+                                try {
+                                daoaretencioncarrera.ModificarReporte(idRetencionCarrera, idCarrera, idRetencion, porcentaje, año);
+                                } catch (Exception e) {
+                                    JOptionPane.showMessageDialog(this, "Error", "Informacion", 0);
+                                }
+                            }
+                            if (!validador2) {
+                              JOptionPane.showMessageDialog(this, "Modificado", "Informacion", 1);  
+                            }
+                            
+                            LimpiarCampos();
+                            DatosTablaCarrera();
+
+                        }
+
+                    }
+                }
+            }
+        }
     }//GEN-LAST:event_btnModificarRetencionCarreraActionPerformed
 
     private void tablaRetencionCarreraMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tablaRetencionCarreraMouseClicked
-        // TODO add your handling code here:
+        tablaRetencionCarrera.setEnabled(true);
+        DefaultTableModel model = (DefaultTableModel) this.tablaRetencionCarrera.getModel();
+        int i = tablaRetencionCarrera.getSelectedRow();
+        idretencioncarrera.setText(String.valueOf(tablaRetencionCarrera.getValueAt(i, 0)));
+        listCarrera.setSelectedItem(String.valueOf(tablaRetencionCarrera.getValueAt(i, 1)));
+        spinerAñosCarrera.setValue((int) (tablaRetencionCarrera.getValueAt(i, 3)));
+        spinerPorcentajeCarrera.setValue((float) (tablaRetencionCarrera.getValueAt(i, 2)));
     }//GEN-LAST:event_tablaRetencionCarreraMouseClicked
 
     private void tablaRetencionCarreraComponentMoved(java.awt.event.ComponentEvent evt) {//GEN-FIRST:event_tablaRetencionCarreraComponentMoved
@@ -1038,8 +1452,96 @@ public class dashboardRetencion extends javax.swing.JFrame {
     }//GEN-LAST:event_tablaRetencionCarreraComponentMoved
 
     private void btnEliminarRetencionCarreraActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnEliminarRetencionCarreraActionPerformed
-        // TODO add your handling code here:
+        if (idretencioncarrera.getText().trim().isEmpty()) {
+            JOptionPane.showMessageDialog(this, "No hay ningun elemento selecionado", "Informacion", 1);
+        } else {
+            DAORetencionCarrera daoretencioncarrera = new DAORetencionCarrera();
+            try {
+                daoretencioncarrera.EliminarRetencionCarrera(Integer.parseInt(idretencioncarrera.getText()));
+                //DatosTablaArea();
+
+            } catch (NumberFormatException e) {
+                System.out.println(e);
+            }
+            DatosTablaCarrera();
+            LimpiarCampos();
+        }
     }//GEN-LAST:event_btnEliminarRetencionCarreraActionPerformed
+
+    private void ingresarCarreraRapidaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_ingresarCarreraRapidaActionPerformed
+
+        customDialog.setLocationRelativeTo(this);
+        customDialog.setVisible(true);
+    }//GEN-LAST:event_ingresarCarreraRapidaActionPerformed
+
+    private void imprimirAreaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_imprimirAreaActionPerformed
+
+        LocalDateTime ahora = LocalDateTime.now();
+
+        MessageFormat format = new MessageFormat("Informe de retencion: Page - {0}");
+        MessageFormat format2 = new MessageFormat("Retencion Area " + ahora);
+        try {
+            tablaRetencionArea.print(JTable.PrintMode.FIT_WIDTH, format, format2);
+        } catch (PrinterException ex) {
+            Logger.getLogger(dashboardRetencion.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }//GEN-LAST:event_imprimirAreaActionPerformed
+
+    private void exportarAreaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_exportarAreaActionPerformed
+        String guardarArchivo = guardarArchivo(this);
+
+        ModeloExcel excel = new ModeloExcel();
+        try {
+            if (!guardarArchivo.equals("")) {
+                excel.Exportar(new File(guardarArchivo), tablaRetencionArea);
+                JOptionPane.showMessageDialog(this, "Se a guardado en: " + guardarArchivo + "", "Informacion", 1);
+
+            } else {
+                JOptionPane.showMessageDialog(this, "No se a seleccionado ningun archivo", "Mensaje", 1);
+            }
+        } catch (HeadlessException e) {
+            JOptionPane.showMessageDialog(this, e, "Error", 0);
+        }
+
+
+    }//GEN-LAST:event_exportarAreaActionPerformed
+
+    private void imprimirCarreraActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_imprimirCarreraActionPerformed
+        LocalDateTime ahora = LocalDateTime.now();
+
+        MessageFormat format = new MessageFormat("Informe de retencion: Page - {0}");
+        MessageFormat format2 = new MessageFormat("Retencion Carrera " + ahora);
+        try {
+            tablaRetencionCarrera.print(JTable.PrintMode.FIT_WIDTH, format, format2);
+        } catch (PrinterException ex) {
+            Logger.getLogger(dashboardRetencion.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }//GEN-LAST:event_imprimirCarreraActionPerformed
+
+    private void exportarCarreraActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_exportarCarreraActionPerformed
+        String guardarArchivo = guardarArchivo(this);
+
+        ModeloExcel excel = new ModeloExcel();
+        try {
+            if (!guardarArchivo.equals("")) {
+                excel.Exportar(new File(guardarArchivo), tablaRetencionCarrera);
+                JOptionPane.showMessageDialog(this, "Se a guardado en: " + guardarArchivo + "", "Informacion", 1);
+
+            } else {
+                JOptionPane.showMessageDialog(this, "No se a seleccionado ningun archivo", "Mensaje", 1);
+            }
+        } catch (HeadlessException e) {
+            JOptionPane.showMessageDialog(this, e, "Error", 0);
+        }
+    }//GEN-LAST:event_exportarCarreraActionPerformed
+
+    private void jButton3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton3ActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_jButton3ActionPerformed
+
+    private void exportarArea2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_exportarArea2ActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_exportarArea2ActionPerformed
 
     /**
      * @param args the command line arguments
@@ -1054,27 +1556,23 @@ public class dashboardRetencion extends javax.swing.JFrame {
             for (javax.swing.UIManager.LookAndFeelInfo info : javax.swing.UIManager.getInstalledLookAndFeels()) {
                 if ("Windows".equals(info.getName())) {
                     javax.swing.UIManager.setLookAndFeel(info.getClassName());
+                    UIManager.setLookAndFeel(WebLookAndFeel.class.getCanonicalName());
                     break;
                 }
             }
-        } catch (ClassNotFoundException ex) {
-            java.util.logging.Logger.getLogger(dashboardRetencion.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (InstantiationException ex) {
-            java.util.logging.Logger.getLogger(dashboardRetencion.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (IllegalAccessException ex) {
-            java.util.logging.Logger.getLogger(dashboardRetencion.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (javax.swing.UnsupportedLookAndFeelException ex) {
+        } catch (ClassNotFoundException | InstantiationException | IllegalAccessException | javax.swing.UnsupportedLookAndFeelException ex) {
             java.util.logging.Logger.getLogger(dashboardRetencion.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         }
         //</editor-fold>
 
+        //</editor-fold>
+
         /* Create and display the form */
-        java.awt.EventQueue.invokeLater(new Runnable() {
-            public void run() {
-                new dashboardRetencion().setVisible(true);
-            }
+        java.awt.EventQueue.invokeLater(() -> {
+            new dashboardRetencion().setVisible(true);
         });
     }
+
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JPanel Inicio;
@@ -1102,9 +1600,17 @@ public class dashboardRetencion extends javax.swing.JFrame {
     private javax.swing.JSplitPane divisionRArea;
     private javax.swing.JSplitPane divisionRSede;
     private javax.swing.JSplitPane divisionRSede1;
+    private javax.swing.JButton exportarArea;
+    private javax.swing.JButton exportarArea2;
+    private javax.swing.JButton exportarCarrera;
     private javax.swing.JLabel idretencionarea;
+    private javax.swing.JLabel idretencioncarrera;
     private javax.swing.JLabel idretencionsede;
-    private javax.swing.JLabel idretencionsede1;
+    private javax.swing.JButton imprimirArea;
+    private javax.swing.JButton imprimirCarrera;
+    private javax.swing.JButton ingresarAreaRapida;
+    private javax.swing.JButton ingresarCarreraRapida;
+    private javax.swing.JButton jButton3;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel10;
     private javax.swing.JLabel jLabel11;
@@ -1123,7 +1629,6 @@ public class dashboardRetencion extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel7;
     private javax.swing.JLabel jLabel8;
     private javax.swing.JLabel jLabel9;
-    private javax.swing.JOptionPane jOptionPane1;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JScrollPane jScrollPane2;
     private javax.swing.JScrollPane jScrollPane3;
